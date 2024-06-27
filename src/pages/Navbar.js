@@ -11,7 +11,7 @@ function Navbar() {
       navigate(path);
     };
     const menuItems=[
-      {key:'1',label:'回到Lobby',path:'/'},
+      {key:'1',label:'回到首頁',path:'/'},
       {key:'2',label:'刷綠教學',path:'/farmOasis'},
       {key:'3',label:'米產',path:'/page1'},
       {key:'4',label:'測試01',path:'/page2'},
