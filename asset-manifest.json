@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/TravianFunGuys/static/css/main.50f3128e.css",
+    "main.js": "/TravianFunGuys/static/js/main.ea5be4d5.js",
+    "static/js/453.ed3810f9.chunk.js": "/TravianFunGuys/static/js/453.ed3810f9.chunk.js",
+    "index.html": "/TravianFunGuys/index.html",
+    "main.50f3128e.css.map": "/TravianFunGuys/static/css/main.50f3128e.css.map",
+    "main.ea5be4d5.js.map": "/TravianFunGuys/static/js/main.ea5be4d5.js.map",
+    "453.ed3810f9.chunk.js.map": "/TravianFunGuys/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50f3128e.css",
+    "static/js/main.ea5be4d5.js"
+  ]
+}
