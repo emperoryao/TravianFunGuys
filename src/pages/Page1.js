@@ -6,7 +6,7 @@ function Page1() {
     <div>
     <Navbar/>
 
-    <div>資源頁</div>
+    <div>開發中</div>
   </div>
   );
 }

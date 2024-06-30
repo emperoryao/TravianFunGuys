@@ -9,6 +9,7 @@ function renderUpdateRecord (){
     <Timeline>
       <Timeline.Item>頁面始於 2024-06-27</Timeline.Item>
       <Timeline.Item>新增綠洲資料於 2024-06-28</Timeline.Item>
+      <Timeline.Item>新增刷綠教學-種族配置區塊於 2024-07-01</Timeline.Item>
   </Timeline></div>)
 }
 const handleOnSubmit=(account,pwd,setOriginal)=>{
@@ -40,7 +41,7 @@ function Lobby() {
         {renderUpdateRecord()}
         <footer>資料錯誤，bug回報 請截圖聯繫草</footer>
       </div>:
-      <div>
+      <div className='txt-center mTop_4'>
       <div className='wid100'><input placeholder='請輸入帳號' onChange={(e)=>setAccount(e.target.value)}></input></div>
       <div className='wid100'><input placeholder='請輸入密碼' onChange={(e)=>setPwd(e.target.value)}></input></div>
         <div onClick={()=>handleOnSubmit(account,pwd,setOriginal)}> 送出</div>
