@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Navbar from './Navbar';
-import { Radio, Switch } from 'antd';
+import { Radio} from 'antd';
 
 function FarmOasis() {  
   const [pickRace  , setPickRace ] = useState(null)
@@ -325,6 +325,8 @@ function renderotherConfiguration(otherConfiguration){
           </div>
       </div>
       )
+    default:
+      break
   }
 
 }
@@ -559,18 +561,18 @@ function  handle4logicButtonOnClick(number){
     return (
       <div className='mLeft_1'>
         <Navbar/>
-        <div>刷綠教學</div>
-        <div>總共分成四個環節，四個環節都非常重要，請要刷綠之前務必知悉每一個細節，以免刷綠時候操作失誤，造成事倍功半。</div>
+        <div className='mLeft_1'>刷綠教學</div>
+        <div className='mLeft_1'>總共分成四個環節，四個環節都非常重要，請要刷綠之前務必知悉每一個細節，以免刷綠時候操作失誤，造成事倍功半。</div>
 
         
-        <div>注意:</div>
-        <div>由於<span className='color_0b76ff'>大象</span>戰鬥力過高，導致遇到<span className='color_0b76ff'>大象</span>時要把<span className='color_0b76ff'>大象</span>直接擊殺的成本過高 <span>因此無損刷綠是指遇到<span className='color_0b76ff'>大象</span>以外的綠洲動物都可以清掉</span></div>
+        <div className='mLeft_1'>注意:</div>
+        <div className='mLeft_1'>由於<span className='color_0b76ff'>大象</span>戰鬥力過高，導致遇到<span className='color_0b76ff'>大象</span>時要把<span className='color_0b76ff'>大象</span>直接擊殺的成本過高 <span>因此無損刷綠是指遇到<span className='color_0b76ff'>大象</span>以外的綠洲動物都可以清掉</span></div>
 
-        <div className='flex mTop_1'>
-        <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no1' onClick={()=>handle4logicButtonOnClick(1)}><div className={`${showRuleNumber===1?'onSelect':null}`}></div></div>  <div>生怪頻率</div>
-        <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no2' onClick={()=>handle4logicButtonOnClick(2)}><div className={`${showRuleNumber===2?'onSelect':null}`}></div></div>  <div>生怪邏輯</div>
-        <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no3' onClick={()=>handle4logicButtonOnClick(3)}><div className={`${showRuleNumber===3?'onSelect':null}`}></div></div>  <div>清怪邏輯</div>
-        <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no4' onClick={()=>handle4logicButtonOnClick(4)}><div className={`${showRuleNumber===4?'onSelect':null}`}></div></div>  <div>種族配置</div>
+        <div className='flex mTop_1 mLeft_05'>
+          <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no1' onClick={()=>handle4logicButtonOnClick(1)}><div className={`${showRuleNumber===1?'onSelect':null}`}></div></div>  <div>生怪頻率</div>
+          <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no2' onClick={()=>handle4logicButtonOnClick(2)}><div className={`${showRuleNumber===2?'onSelect':null}`}></div></div>  <div>生怪邏輯</div>
+          <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no3' onClick={()=>handle4logicButtonOnClick(3)}><div className={`${showRuleNumber===3?'onSelect':null}`}></div></div>  <div>清怪邏輯</div>
+          <div className='hei20px wid20px mRight_05 mLeft_05 mBot_1 border1Sblack no4' onClick={()=>handle4logicButtonOnClick(4)}><div className={`${showRuleNumber===4?'onSelect':null}`}></div></div>  <div>種族配置</div>
         </div>
         {showRuleNumber===1?renderRule1():null}
         {showRuleNumber===2?renderRule2():null}

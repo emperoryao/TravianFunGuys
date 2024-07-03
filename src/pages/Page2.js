@@ -6,7 +6,7 @@ function Page2() {
     <div>
     <Navbar/>
 
-    <div>資源頁</div>
+    <div>建築資源列表</div>
   </div>
   );
 }
