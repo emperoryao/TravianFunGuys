@@ -561,8 +561,8 @@ function  handle4logicButtonOnClick(number){
     return (
       <div className='mLeft_1'>
         <Navbar/>
-        <div className='mLeft_1'>刷綠教學</div>
-        <div className='mLeft_1'>總共分成四個環節，四個環節都非常重要，請要刷綠之前務必知悉每一個細節，以免刷綠時候操作失誤，造成事倍功半。</div>
+        <div className='mLeft_1 color_brown fw-bold fs2p5r borderBottom1Sad320d '>刷綠教學</div>
+        <div className='mLeft_1 mTop_05'>總共分成四個環節，四個環節都非常重要，請要刷綠之前務必知悉每一個細節，以免刷綠時候操作失誤，造成事倍功半。</div>
 
         
         <div className='mLeft_1'>注意:</div>

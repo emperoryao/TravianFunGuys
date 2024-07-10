@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import BuildingList from './pages/buildingList';
-import Page2 from './pages/Page2';
+import CulturePoints from './pages/CulturePoints';
 import FarmOasis from './pages/farmOasis';
 import Lobby from './pages/Lobby';
+import DistanceCalculate from './pages/DistanceCalculate';
 import './style/common.less'
 function Router() {
 
@@ -13,7 +14,8 @@ function Router() {
         <Route  path='/' element={<Lobby/>}/>
         <Route path="/farmOasis" element={<FarmOasis />} />
         <Route path="/buildingList" element={<BuildingList />} />
-        <Route path="/Page2" element={<Page2 />} />
+        <Route path="/CulturePoints" element={<CulturePoints />} />
+        <Route path="/DistanceCalculate" element={<DistanceCalculate />} />
         {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>

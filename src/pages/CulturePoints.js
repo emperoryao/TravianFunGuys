@@ -1,14 +1,14 @@
 import React from 'react';
 import Navbar from './Navbar';
-function Page2() {
+function CulturePoints() {
 
   return (
     <div>
     <Navbar/>
 
-    <div>建築資源列表</div>
+    <div>開發中</div>
   </div>
   );
 }
 
-export default Page2;
+export default CulturePoints;
