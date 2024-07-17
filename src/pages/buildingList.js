@@ -50,10 +50,26 @@ function currentPickTargets(
   totalResourceArray,
   setTotalResourceArray
 ) {
+  let groups = {};
+  saveArray.forEach((item) => {
+    let key = Object.keys(item)[0];
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(item);
+  });
+  Object.keys(groups).forEach((key) => {
+    groups[key].sort((a, b) => a[key] - b[key]);
+  });
+
+  let sortedArray = [];
+  Object.keys(groups).forEach((key) => {
+    sortedArray = [...sortedArray, ...groups[key]];
+  });
   return (
     <div>
       <div>
-        <span className="fs20px">當前統計之建築清單</span>{" "}
+        <span className="fs20px fw-bold">當前統計之建築清單</span>{" "}
         <span className="color_cf2321">點擊不要的建築項目即可從清單中移除</span>
       </div>
       <div className="flex">
@@ -65,8 +81,8 @@ function currentPickTargets(
         <div className="wid8 txt-center border1S7E7E7E">總和</div>
       </div>
       <div className="bias">
-        {saveArray.length > 0 &&
-          saveArray.map((item, index) => {
+        {sortedArray.length > 0 &&
+          sortedArray.map((item, index) => {
             let targetList = resourcesList[0][Object.keys(item)[0]];
             let target = targetList.find(
               (a) => a.lv === Object.values(item)[0]
@@ -130,9 +146,13 @@ function handleBuildLvOnClick(
   setMutiple,
   multipleStartItem,
   setMultipleStartItem,
-  data
+  data,
+  setHightLight
 ) {
   if (mutiple === true && Object.keys(multipleStartItem).length === 0) {
+    console.log("newItem in handleBuildLvOnClick", NewItem);
+    let temp = Object.values(NewItem)[0];
+    setHightLight([temp]);
     setMultipleStartItem(NewItem);
     return;
   } else if (mutiple === true && Object.keys(multipleStartItem).length !== 0) {
@@ -170,8 +190,14 @@ function handleBuildLvOnClick(
         }
         // 最后将temp合并到saveArray
         setSaveArray([...saveArray, ...temp]);
+        setMutiple(!mutiple);
+        setMultipleStartItem({});
+        setHightLight([]);
       } else {
         setSaveArray(result);
+        setMutiple(!mutiple);
+        setMultipleStartItem({});
+        setHightLight([]);
       }
     } else {
       setMutiple(!mutiple);
@@ -202,6 +228,16 @@ function handleBuildLvOnClick(
   }
 }
 
+function test(hightLight, lv) {
+  console.log("in 判斷css函式 hightLight", hightLight);
+  console.log("in 判斷css函式 lv", lv);
+  if (hightLight.includes(lv)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function renderCurrentBuilding(
   build,
   saveArray,
@@ -209,17 +245,26 @@ function renderCurrentBuilding(
   mutiple,
   setMutiple,
   multipleStartItem,
-  setMultipleStartItem
+  setMultipleStartItem,
+  hightLight,
+  setHightLight,
+  handleMouseMoving
 ) {
   let data = resourcesList[0][build];
+  let compareValue =
+    Object.values(multipleStartItem).length > 0
+      ? Object.values(multipleStartItem)[0]
+      : "";
   return (
     <div className="mBot_5">
       {data &&
-        data.map((item) => {
+        data.map((item, index) => {
           const { lv, wood, brick, iron, corp, total, pop, CP } = item;
+
           return (
             <div
-              className="flex bulidingLevelList"
+              className={`flex bulidingLevelList}`}
+              key={index}
               onClick={() =>
                 handleBuildLvOnClick(
                   { [build]: lv },
@@ -229,32 +274,73 @@ function renderCurrentBuilding(
                   setMutiple,
                   multipleStartItem,
                   setMultipleStartItem,
-                  data
+                  data,
+                  setHightLight
                 )
               }
+              onMouseEnter={() =>
+                Object.values(multipleStartItem).length > 0
+                  ? handleMouseMoving(lv)
+                  : null
+              }
+              onMouseLeave={() =>
+                Object.values(multipleStartItem).length > 0
+                  ? handleMouseMoving(lv)
+                  : null
+              }
+              // // onMouseEnter={() =>
+              // //   Object.keys(multipleStartItem).length > 0 //是否開啟多選
+              // //     ? handleOnMouseEnter(previous, lv, hightLight, setHightLight)
+              // //     : null
+              // // }
+              // onMouseLeave={() => setPrevious(lv)}
             >
-              <div key={lv} className="wid4 txt-center border1S7E7E7E">
+              <div
+                key={lv + "lv"}
+                className={`wid4 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {lv}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "wood"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {wood}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "brick"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {brick}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "iron"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {iron}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "corp"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null}  `}
+              >
                 {corp}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "pop"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {pop}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "CP"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null}  `}
+              >
                 {CP}
               </div>
-              <div key={lv} className="wid6 txt-center border1S7E7E7E">
+              <div
+                key={lv + "total"}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+              >
                 {total}
               </div>
             </div>
@@ -270,6 +356,8 @@ function BuildingList() {
   const [totalResourceArray, setTotalResourceArray] = useState([]);
   const [multiple, setMultiple] = useState(false);
   const [multipleStartItem, setMultipleStartItem] = useState({});
+  const [hightLight, setHightLight] = useState([]);
+  const [previous, setPrevious] = useState();
   let resources1 = [
     "伐木場",
     "泥坑",
@@ -325,6 +413,14 @@ function BuildingList() {
     "寶物庫",
     "世界奇觀",
   ]; //其他
+
+  const handleMouseMoving = (lv) => {
+    if (!hightLight.includes(lv)) {
+      setHightLight([...hightLight, lv]);
+    } else {
+      setHightLight(hightLight.filter((item) => item !== lv));
+    }
+  };
   return (
     <div className="mLeft_1">
       <Navbar />
@@ -456,7 +552,10 @@ function BuildingList() {
           multiple,
           setMultiple,
           multipleStartItem,
-          setMultipleStartItem
+          setMultipleStartItem,
+          hightLight,
+          setHightLight,
+          handleMouseMoving
         )}
       </div>
     </div>
