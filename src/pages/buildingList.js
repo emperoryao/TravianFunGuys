@@ -146,13 +146,10 @@ function handleBuildLvOnClick(
   setMutiple,
   multipleStartItem,
   setMultipleStartItem,
-  data,
-  setHightLight
+  data
 ) {
   if (mutiple === true && Object.keys(multipleStartItem).length === 0) {
     console.log("newItem in handleBuildLvOnClick", NewItem);
-    let temp = Object.values(NewItem)[0];
-    setHightLight([temp]);
     setMultipleStartItem(NewItem);
     return;
   } else if (mutiple === true && Object.keys(multipleStartItem).length !== 0) {
@@ -192,12 +189,10 @@ function handleBuildLvOnClick(
         setSaveArray([...saveArray, ...temp]);
         setMutiple(!mutiple);
         setMultipleStartItem({});
-        setHightLight([]);
       } else {
         setSaveArray(result);
         setMutiple(!mutiple);
         setMultipleStartItem({});
-        setHightLight([]);
       }
     } else {
       setMutiple(!mutiple);
@@ -228,16 +223,6 @@ function handleBuildLvOnClick(
   }
 }
 
-function test(hightLight, lv) {
-  console.log("in 判斷css函式 hightLight", hightLight);
-  console.log("in 判斷css函式 lv", lv);
-  if (hightLight.includes(lv)) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function renderCurrentBuilding(
   build,
   saveArray,
@@ -245,10 +230,7 @@ function renderCurrentBuilding(
   mutiple,
   setMutiple,
   multipleStartItem,
-  setMultipleStartItem,
-  hightLight,
-  setHightLight,
-  handleMouseMoving
+  setMultipleStartItem
 ) {
   let data = resourcesList[0][build];
   let compareValue =
@@ -263,7 +245,7 @@ function renderCurrentBuilding(
 
           return (
             <div
-              className={`flex bulidingLevelList}`}
+              className={`flex bulidingLevelList `}
               key={index}
               onClick={() =>
                 handleBuildLvOnClick(
@@ -274,72 +256,55 @@ function renderCurrentBuilding(
                   setMutiple,
                   multipleStartItem,
                   setMultipleStartItem,
-                  data,
-                  setHightLight
+                  data
                 )
               }
-              onMouseEnter={() =>
-                Object.values(multipleStartItem).length > 0
-                  ? handleMouseMoving(lv)
-                  : null
-              }
-              onMouseLeave={() =>
-                Object.values(multipleStartItem).length > 0
-                  ? handleMouseMoving(lv)
-                  : null
-              }
-              // // onMouseEnter={() =>
-              // //   Object.keys(multipleStartItem).length > 0 //是否開啟多選
-              // //     ? handleOnMouseEnter(previous, lv, hightLight, setHightLight)
-              // //     : null
-              // // }
-              // onMouseLeave={() => setPrevious(lv)}
             >
               <div
                 key={lv + "lv"}
-                className={`wid4 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid4 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""}`}
               >
                 {lv}
               </div>
               <div
                 key={lv + "wood"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""}`}
               >
                 {wood}
               </div>
               <div
                 key={lv + "brick"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""} `}
               >
                 {brick}
               </div>
               <div
                 key={lv + "iron"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""} `}
               >
                 {iron}
               </div>
               <div
                 key={lv + "corp"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null}  `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""}  `}
               >
                 {corp}
               </div>
               <div
                 key={lv + "pop"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""} `}
               >
                 {pop}
               </div>
               <div
                 key={lv + "CP"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null}  `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""} `}
               >
                 {CP}
               </div>
               <div
                 key={lv + "total"}
-                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : null}  ${hightLight.includes(lv) ? "firstItem testoo" : null} `}
+                className={`wid6 txt-center border1S7E7E7E ${compareValue === lv ? "firstItem" : ""} `}
               >
                 {total}
               </div>
@@ -356,8 +321,6 @@ function BuildingList() {
   const [totalResourceArray, setTotalResourceArray] = useState([]);
   const [multiple, setMultiple] = useState(false);
   const [multipleStartItem, setMultipleStartItem] = useState({});
-  const [hightLight, setHightLight] = useState([]);
-  const [previous, setPrevious] = useState();
   let resources1 = [
     "伐木場",
     "泥坑",
@@ -413,13 +376,11 @@ function BuildingList() {
     "寶物庫",
     "世界奇觀",
   ]; //其他
-
-  const handleMouseMoving = (lv) => {
-    if (!hightLight.includes(lv)) {
-      setHightLight([...hightLight, lv]);
-    } else {
-      setHightLight(hightLight.filter((item) => item !== lv));
-    }
+  const handleBuidingOnClick = (item) => {
+    console.log("in handleBuidingOnClick");
+    setMultiple(false);
+    setMultipleStartItem({});
+    setBuild(item);
   };
   return (
     <div className="mLeft_1">
@@ -439,7 +400,7 @@ function BuildingList() {
                   className="build txt-center wid80 mTop_03 mRight_auto mLeft_auto border1S00003 borderRadius05r"
                   key={index1}
                 >
-                  <div onClick={() => setBuild(item1)}>{item1}</div>
+                  <div onClick={() => handleBuidingOnClick(item1)}>{item1}</div>
                 </div>
               );
             })}
@@ -454,7 +415,7 @@ function BuildingList() {
                   className="build txt-center wid80 mTop_03 mRight_auto mLeft_auto border1S00003 borderRadius05r"
                   key={index2}
                 >
-                  <div onClick={() => setBuild(item2)}>{item2}</div>
+                  <div onClick={() => handleBuidingOnClick(item2)}>{item2}</div>
                 </div>
               );
             })}
@@ -469,7 +430,7 @@ function BuildingList() {
                   className="build txt-center wid80 mTop_03 mRight_auto mLeft_auto border1S00003 borderRadius05r"
                   key={index3}
                 >
-                  <div onClick={() => setBuild(item3)}>{item3}</div>
+                  <div onClick={() => handleBuidingOnClick(item3)}>{item3}</div>
                 </div>
               );
             })}
@@ -484,7 +445,7 @@ function BuildingList() {
                   className="build txt-center wid80 mTop_03 mRight_auto mLeft_auto border1S00003 borderRadius05r"
                   key={index4}
                 >
-                  <div onClick={() => setBuild(item4)}>{item4}</div>
+                  <div onClick={() => handleBuidingOnClick(item4)}>{item4}</div>
                 </div>
               );
             })}
@@ -499,7 +460,7 @@ function BuildingList() {
                   className="build txt-center wid80 mTop_03 mRight_auto mLeft_auto border1S00003 borderRadius05r"
                   key={index5}
                 >
-                  <div onClick={() => setBuild(item5)}>{item5}</div>
+                  <div onClick={() => handleBuidingOnClick(item5)}>{item5}</div>
                 </div>
               );
             })}
@@ -552,10 +513,7 @@ function BuildingList() {
           multiple,
           setMultiple,
           multipleStartItem,
-          setMultipleStartItem,
-          hightLight,
-          setHightLight,
-          handleMouseMoving
+          setMultipleStartItem
         )}
       </div>
     </div>
