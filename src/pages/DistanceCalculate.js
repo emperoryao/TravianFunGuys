@@ -19,25 +19,16 @@ function TimeCalculate(
   timeMultiplier,
   shoes
 ) {
-  console.log(
-    "總共距離:",
-    totalDistance,
-    "速度:",
-    speed,
-    "神器加成",
-    timeMultiplier
-  );
   let shoesBonus = 0;
   let bonusAfter20Grids = 0;
-  if (typeof shoes === Number) {
+  if (typeof shoes === "number") {
     shoesBonus = shoes;
   } else {
     let temp = shoes && shoes.split("%");
     temp = parseInt(temp[0]);
     temp = temp / 100;
-    bonusAfter20Grids = temp;
+    bonusAfter20Grids = temp || 0;
   }
-
   let baseSpeed = (speed + shoesBonus) * timeMultiplier;
 
   // 计算加速后的速度倍率
