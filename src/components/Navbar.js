@@ -18,13 +18,13 @@ function Navbar() {
       </div>
       <div
         className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
-        onClick={() => handleNavigate("/farmOasis")}
+        onClick={() => handleNavigate("/FarmOasis")}
       >
         關於刷綠
       </div>
       <div
         className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
-        onClick={() => handleNavigate("/buildingList")}
+        onClick={() => handleNavigate("/BuildingList")}
       >
         建築資源列表(建築資源計算器)
       </div>
