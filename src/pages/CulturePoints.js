@@ -1,13 +1,12 @@
-import React from 'react';
-import Navbar from './Navbar';
+import React from "react";
+import Navbar from "../components/Navbar";
 function CulturePoints() {
-
   return (
     <div>
-    <Navbar/>
+      <Navbar />
 
-    <div>開發中</div>
-  </div>
+      <div>開發中</div>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import "../style/common.less";
 import Selector from "./Selector";
 
@@ -78,7 +78,6 @@ function DistanceCalculate() {
   const [mapSize, setMapSize] = useState(401);
   const [result, setResult] = useState(0);
   const [arti, setArti] = useState(1);
-  const [heroLeftHand, setHeroLeftHand] = useState(0);
   const [heroShoes, setHeroShoes] = useState(0);
   const JjcItem = [
     {

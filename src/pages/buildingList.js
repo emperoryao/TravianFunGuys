@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import resourcesList from "./dataFile/ResourceRecord/resourcesList";
 import "../style/common.less";
 function renderTotalResources(

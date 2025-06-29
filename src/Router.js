@@ -1,17 +1,26 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BuildingList from './pages/buildingList';
-import CulturePoints from './pages/CulturePoints';
-import FarmOasis from './pages/farmOasis';
-import Lobby from './pages/Lobby';
-import DistanceCalculate from './pages/DistanceCalculate';
-import './style/common.less'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ResponsiveRoute from "./components/ResponsiveRoute";
+import BuildingList from "./pages/buildingList";
+import CulturePoints from "./pages/CulturePoints";
+import FarmOasis from "./pages/farmOasis";
+import Lobby from "./pages/Lobby";
+import LobbyMobile from "./pages/LobbyMobile";
+import DistanceCalculate from "./pages/DistanceCalculate";
+import "./style/common.less";
 function Router() {
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route  path='/' element={<Lobby/>}/>
+        <Route
+          path="/"
+          element={
+            <ResponsiveRoute
+              desktopComponent={Lobby}
+              mobileComponent={LobbyMobile}
+            />
+          }
+        />
         <Route path="/farmOasis" element={<FarmOasis />} />
         <Route path="/buildingList" element={<BuildingList />} />
         <Route path="/CulturePoints" element={<CulturePoints />} />
