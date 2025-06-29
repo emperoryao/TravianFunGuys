@@ -36,6 +36,7 @@ export default function renderUpdateRecord(params) {
         <Timeline.Item>
           調整 建築資源計算器統計清單不論加入先後都會依照等級排序 於 2024-07-17
         </Timeline.Item>
+        <Timeline.Item>新增 手機板大廳 於 2025-06-30</Timeline.Item>
       </Timeline>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveRoute from "./components/ResponsiveRoute";
-import BuildingList from "./pages/buildingList";
+import BuildingList from "./pages/BuildingList";
 import CulturePoints from "./pages/CulturePoints";
-import FarmOasis from "./pages/farmOasis";
+import FarmOasis from "./pages/FarmOasis";
 import Lobby from "./pages/Lobby";
 import LobbyMobile from "./pages/LobbyMobile";
 import DistanceCalculate from "./pages/DistanceCalculate";
@@ -21,8 +21,8 @@ function Router() {
             />
           }
         />
-        <Route path="/farmOasis" element={<FarmOasis />} />
-        <Route path="/buildingList" element={<BuildingList />} />
+        <Route path="/FarmOasis" element={<FarmOasis />} />
+        <Route path="/BuildingList" element={<BuildingList />} />
         <Route path="/CulturePoints" element={<CulturePoints />} />
         <Route path="/DistanceCalculate" element={<DistanceCalculate />} />
         {/* Add more routes as needed */}
