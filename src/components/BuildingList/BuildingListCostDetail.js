@@ -6,11 +6,8 @@ import resourcesList from "../../config/buildingListResourceList";
 function BuildingListCostDetail() {
   const {
     build,
-    setBuild,
     saveArray,
     setSaveArray,
-    totalResourceArray,
-    setTotalResourceArray,
     multiple,
     setMultiple,
     multipleStartItem,
