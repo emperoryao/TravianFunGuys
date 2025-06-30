@@ -106,7 +106,7 @@ function BuildingListCostDetail() {
     );
   }
   return (
-    <div className="wid28 mLeft_05">
+    <div className="wid35 mRight_4p mLeft_4p ">
       <div className="flex">
         <div className="color_0600ff l-hei1p7r hei1p7r wid30 mTop_02 mBot_05 fw-bold">
           {build}

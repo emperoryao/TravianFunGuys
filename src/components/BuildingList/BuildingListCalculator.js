@@ -58,7 +58,7 @@ function BuildingListCalculator() {
     sortedArray = [...sortedArray, ...groups[key]];
   });
   return (
-    <div className="wid38 mLeft_1p">
+    <div className="wid35">
       <div className="color_0600ff l-hei1p7r hei1p7r mTop_02 mBot_05 flex">
         <span className="fs20px fw-bold">當前統計之建築清單</span>{" "}
         <span className="color_cf2321">點擊不要的建築項目即可從清單中移除</span>

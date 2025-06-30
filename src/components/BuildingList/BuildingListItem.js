@@ -10,8 +10,8 @@ function BuildingListItem() {
     setBuild(item);
   };
   return (
-    <div className="wid32 hei18r flex">
-      <div className="wid20">
+    <div className="wid25 hei75vh flex flexWrap_wrap ">
+      <div className="wid33">
         <div className="txt-center borderBottom1Sblack wid80 mTop_03 mBot_05 pRight_05 pLeft_05 fw-bold hei1p7r">
           資源相關
         </div>
@@ -26,7 +26,7 @@ function BuildingListItem() {
           );
         })}
       </div>
-      <div className="wid20">
+      <div className="wid33">
         <div className="txt-center borderBottom1Sblack wid80 mTop_03 mBot_05 pRight_05 pLeft_05 fw-bold hei1p7r">
           軍事相關
         </div>
@@ -41,7 +41,7 @@ function BuildingListItem() {
           );
         })}
       </div>
-      <div className="wid20">
+      <div className="wid33">
         <div className="txt-center borderBottom1Sblack wid80 mTop_03 mBot_05 pRight_05 pLeft_05 fw-bold hei1p7r">
           常見建築
         </div>
@@ -56,7 +56,7 @@ function BuildingListItem() {
           );
         })}
       </div>
-      <div className="wid20">
+      <div className="wid33">
         <div className="txt-center borderBottom1Sblack wid80 mTop_03 mBot_05 pRight_05 pLeft_05 fw-bold hei1p7r">
           種族特色
         </div>
@@ -71,7 +71,7 @@ function BuildingListItem() {
           );
         })}
       </div>
-      <div className="wid20">
+      <div className="wid33">
         <div className="txt-center borderBottom1Sblack wid80 mTop_03 pRight_05 pLeft_05 mBot_05 fw-bold hei1p7r">
           其他建築
         </div>
