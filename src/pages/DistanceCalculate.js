@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import "../style/common.less";
 import Selector from "./Selector";
-
+import heroShoesList from "../config/distanceCalculateHeroShoes";
+import heroLeftHandList from "../config/distanceCalculateHeroLeftHand";
 function circularDistance(x1, y1, x2, y2, size, setResult) {
   // 計算x軸和y軸的差值，並考慮跨越邊界的距離
   let dx = Math.min(Math.abs(x2 - x1), size - Math.abs(x2 - x1));
@@ -17,18 +18,23 @@ function TimeCalculate(
   speed,
   extraLevel = 0,
   timeMultiplier,
-  shoes
+  shoeInfo,
+  leftHandInfo
 ) {
+  console.log("TimeCalculate 鞋子數字", shoeInfo.value);
+  console.log("TimeCalculate 鞋子名稱", shoeInfo.label);
+  let shoeValue = shoeInfo.value;
   let shoesBonus = 0;
   let bonusAfter20Grids = 0;
-  if (typeof shoes === "number") {
-    shoesBonus = shoes;
+  if (typeof shoeValue === "number" && shoeValue !== 0) {
+    shoesBonus = shoeValue;
   } else {
-    let temp = shoes && shoes.split("%");
+    let temp = shoeValue && shoeValue.split("%");
     temp = parseInt(temp[0]);
     temp = temp / 100;
     bonusAfter20Grids = temp || 0;
   }
+  console.log("鞋子加速比率", shoesBonus);
   let baseSpeed = (speed + shoesBonus) * timeMultiplier;
 
   // 计算加速后的速度倍率
@@ -38,11 +44,11 @@ function TimeCalculate(
   // 前20格的距离和时间
   let initialDistance = Math.min(totalDistance, 20);
   let initialTimeInHours = initialDistance / baseSpeed;
-  console.log("前20格時間", initialTimeInHours);
+  //console.log("前20格時間", initialTimeInHours);
   // 超过20格的距离和时间
   let remainingDistance = Math.max(0, totalDistance - 20);
   let remainingTimeInHours = remainingDistance / acceleratedSpeed;
-  console.log("20格之後的時間", remainingTimeInHours);
+  //console.log("20格之後的時間", remainingTimeInHours);
   // 总时间（小时）
   let totalTimeInHours = initialTimeInHours + remainingTimeInHours;
 
@@ -78,7 +84,10 @@ function DistanceCalculate() {
   const [mapSize, setMapSize] = useState(401);
   const [result, setResult] = useState(0);
   const [arti, setArti] = useState(1);
-  const [heroShoes, setHeroShoes] = useState(0);
+  const [heroShoes] = useState(0);
+  const [shoeInfo, setShoeInfo] = useState({});
+  const [LeftHand] = useState(0);
+  const [leftHandInfo, setLeftHandInfo] = useState({});
   const JjcItem = [
     {
       value: 0,
@@ -179,36 +188,7 @@ function DistanceCalculate() {
       label: 601,
     },
   ];
-  const heroShoesList = [
-    {
-      value: 0,
-      label: "一",
-    },
-    {
-      value: 3,
-      label: "小馬刺",
-    },
-    {
-      value: 4,
-      label: "馬刺",
-    },
-    {
-      value: 5,
-      label: "鋼馬刺",
-    },
-    {
-      value: "25%",
-      label: "僱傭兵之靴",
-    },
-    {
-      value: "50%",
-      label: "戰士之靴",
-    },
-    {
-      value: "75%",
-      label: "射手之靴",
-    },
-  ];
+
   const ArchitectureItem = [
     {
       value: 0.3333333333333333,
@@ -247,9 +227,10 @@ function DistanceCalculate() {
     setArti(value); // 更新 JJCLV 状态为当前选中的值
     console.log(`selected ${value}`);
   };
-  function troopsSpeendBlock(result, JJCLV, arti, heroShoes = 0) {
+  function troopsSpeendBlock(result, JJCLV, arti, shoeInfo, leftHandInfo) {
     let returnResult = [];
-    for (let i = 3; i < 19; i++) {
+    let speedArray = [3, 4, 5, 6, 7, 9, 10, 13, 14, 16, 17, 19];
+    for (let i of speedArray) {
       returnResult.push(
         <div className="flex wid100">
           <div className="wid35 hei1p6r l-hei1p6r  txt-center borderRight1S00003 borderBottom1S00003 borderLeft1S00003 ">
@@ -257,7 +238,7 @@ function DistanceCalculate() {
           </div>
           <div className="wid65 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
             {result > 0
-              ? TimeCalculate(result, i, JJCLV, arti, heroShoes)
+              ? TimeCalculate(result, i, JJCLV, arti, shoeInfo, leftHandInfo)
               : null}
           </div>
         </div>
@@ -265,6 +246,14 @@ function DistanceCalculate() {
     }
     return returnResult;
   }
+  const handleShoesOnChange = (e) => {
+    let shoeInfo = heroShoesList.find((item) => item.value === e);
+    setShoeInfo(shoeInfo);
+  };
+  const handleLeftHandOnChange = (e) => {
+    let leftHandInfo = heroLeftHandList.find((item) => item.value === e);
+    setLeftHandInfo(leftHandInfo);
+  };
   return (
     <div className="mLeft_1">
       <Navbar />
@@ -339,14 +328,28 @@ function DistanceCalculate() {
             <Selector
               item={heroShoesList}
               value={heroShoes}
-              onChange={setHeroShoes}
+              onChange={handleShoesOnChange}
             />
+          </div>
+          <div className="flex wid100 mTop_05 mRigh_05 align-center hei1r l-hei1r">
+            {shoeInfo && shoeInfo.description}
+          </div>
+          <div className="flex wid100 mTop_05 mRigh_05 align-center ">
+            <div className="wid35 fw-bold">英雄左手</div>
+            <Selector
+              item={heroLeftHandList}
+              value={LeftHand}
+              onChange={handleLeftHandOnChange}
+            />
+          </div>
+          <div className="flex wid100 mTop_05 mRigh_05 align-center hei1r l-hei1r">
+            {leftHandInfo && leftHandInfo.description}
           </div>
 
           <div className="flex wid100 mTop_05 mRigh_05 align-center ">
             <div className="hei2p2r l-hei2p2r wid35 fw-bold">距離為</div>
             <div className="hei2r l-hei2r wid20 pTop_01 pRight_03 pBot_01 txt-center borderRadius04r border1SD9D9D9">
-              {String(result).substring(0, 7)}
+              {result.toFixed(2)}
             </div>
           </div>
 
@@ -359,6 +362,18 @@ function DistanceCalculate() {
             >
               計算
             </div>
+            <div>注意事項</div>
+            <ol>
+              <li>
+                在官方的旅行模擬器中，最慢單位的速度為必填單位而馬刺系列完全不影響速度
+              </li>
+              <li>
+                在此模擬器中，馬刺系列加成會直接加在兵種速度上，例如兵種速度3+設置小馬刺，實際為每小時6格行軍速度。
+              </li>
+              <li>
+                當然我們知道小馬刺生效的情境下，行軍速度永遠不可能是每小時6格，但+3/4/5還是可以用作移動速度推導。
+              </li>
+            </ol>
           </div>
         </div>
         <div className="wid15">
@@ -370,7 +385,7 @@ function DistanceCalculate() {
               行軍所需時間
             </div>
           </div>
-          {troopsSpeendBlock(result, JJCLV, arti, heroShoes)}
+          {troopsSpeendBlock(result, JJCLV, arti, shoeInfo, leftHandInfo)}
         </div>
         <div className="wid40"> </div>
       </div>

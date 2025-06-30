@@ -21,7 +21,6 @@ const useBuildingStore = create((set, get) => ({
       setMultipleStartItem,
     } = get();
     if (multiple === true && Object.keys(multipleStartItem).length === 0) {
-      console.log("newItem in handleBuildLvOnClick", NewItem);
       setMultipleStartItem(NewItem);
       return;
     } else if (
@@ -72,7 +71,6 @@ const useBuildingStore = create((set, get) => ({
       } else {
         setMultiple(!multiple);
         setMultipleStartItem({});
-        alert("選取多個等級時候選到兩個不同建築了，請重新操作");
       }
     } else {
       //單選區
