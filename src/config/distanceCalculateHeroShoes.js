@@ -22,17 +22,17 @@ const heroShoesList = [
   {
     value: "25%",
     label: "僱傭兵之靴",
-    description: "只有行軍距離超過20格的部分才起作用",
+    description: "移動速度增加25%|僅行軍距離超過20格的部分才起作用",
   },
   {
     value: "50%",
     label: "戰士之靴",
-    description: "只有行軍距離超過20格的部分才起作用",
+    description: "移動速度增加50%|僅行軍距離超過20格的部分才起作用",
   },
   {
     value: "75%",
     label: "射手之靴",
-    description: "只有行軍距離超過20格的部分才起作用",
+    description: "移動速度增加75%|僅行軍距離超過20格的部分才起作用",
   },
 ];
 export default heroShoesList;

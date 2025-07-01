@@ -4,6 +4,10 @@ export default function renderUpdateRecord(params) {
   return (
     <div className={params}>
       <Timeline>
+        <Timeline.Item>新增 老三族軍隊MetaData 2025-07-01</Timeline.Item>
+        <Timeline.Item>
+          新增 行軍計算器英雄左手裝備計算公式 2025-07-01
+        </Timeline.Item>
         <Timeline.Item>優化 刷綠與建築資源計算頁面 於 2025-06-30</Timeline.Item>
         <Timeline.Item>新增 手機板大廳 於 2025-06-30</Timeline.Item>
         <Timeline.Item>
