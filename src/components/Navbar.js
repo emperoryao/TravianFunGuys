@@ -30,16 +30,16 @@ function Navbar() {
       </div>
       <div
         className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
-        onClick={() => handleNavigate("/CulturePoints")}
-      >
-        關於文明點
-      </div>
-      <div
-        className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
         onClick={() => handleNavigate("/DistanceCalculate")}
       >
         距離計算器
       </div>
+      {/*<div
+        className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
+        onClick={() => handleNavigate("/CulturePoints")}
+      >
+        關於文明點
+      </div>*/}
     </div>
   );
 }

@@ -38,15 +38,16 @@ function AnimalRespawnLogic() {
           <li>
             <div>
               <div className="mLeft_05">
-                <div>平常在特定種類綠洲容易看到某些動物</div>
-                <div>例如泥有鼠蛛豬，木有豬狼熊，鐵有鼠蜘蝠</div>
+                <div>特定種類綠洲常見特定種類動物</div>
+                <div>例如</div>
+                <div>泥-鼠蛛豬</div>
+                <div>木-豬狼熊</div>
+                <div>鐵-鼠蜘蝠</div>
                 <div> 實際上只是"常見"動物</div>
                 <div className="color_cf2321">
                   任一種動物在任一種綠洲裡都有機會生成
                 </div>
-                <div>
-                  只是生成的機率不同，常見是因為牠們在該種類綠洲生成機率比較高
-                </div>
+                <div>常見僅是因為牠們在該種類綠洲生成機率比較高</div>
               </div>
             </div>
           </li>
@@ -69,7 +70,7 @@ function AnimalRespawnLogic() {
                   生成與否及生成幾隻
                 </div>
                 <div>
-                  即為判斷一定始於<span className="color_06730B">老鼠</span>
+                  即判斷一定始於<span className="color_06730B">老鼠</span>
                   終於
                   <span className="color_0b76ff">大象</span>
                 </div>
@@ -77,8 +78,10 @@ function AnimalRespawnLogic() {
                 <div>
                   假設綠洲原先在生成<span className="color_4d10ff">野豬</span>
                   ，接著開始生成<span className="color_gray">灰熊</span>
-                  了，則可知
-                  <span className="color_ff00ba">野狼</span>被系統跳過了。
+                </div>
+                <div>
+                  即可知
+                  <span className="color_ff00ba">野狼</span>被系統跳過了
                 </div>
                 <div>
                   當<span className="color_gray">灰熊</span>
@@ -86,7 +89,7 @@ function AnimalRespawnLogic() {
                   <span className="color_orange">鱷魚</span>/
                   <span className="color_1f8f13">老虎</span>/
                   <span className="color_0b76ff">大象</span>
-                  /其中一種，或者結束生怪循環。
+                  /其一或結束生怪循環。
                 </div>
                 <div>
                   倘若發現同一綠洲又開始生成
@@ -100,10 +103,10 @@ function AnimalRespawnLogic() {
             <div>
               <div className="mLeft_05">
                 <div>
-                  每一次生怪循環的結尾都一定會判斷
-                  <span className="color_0b76ff">大象</span>生不生
+                  每一次生怪循環結尾都一定是判斷
+                  <span className="color_0b76ff">大象</span>
                 </div>
-                <div>發現當下一直有在綠洲刷到動物，背包資源一直跳時</div>
+                <div>發現當下一直有在綠洲刷到動物時</div>
                 <div>
                   等等可能會有很多綠洲一起出
                   <span className="color_0b76ff">大象</span>

@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import NavbarMobile from "../components/NavbarMobile";
 import { Radio } from "antd";
 import { raceChinese, raceInfo } from "../config/farmOasisRaceInfo";
 import animals from "../config/farmOasisAnimalData";
-import BasicDescription from "../components/FarmOasis/BasicDescription";
-import AnimalRespawnLogic from "../components/FarmOasis/AnimalRespawnLogic";
+import BasicDescriptionMobile from "../components/FarmOasis/BasicDescriptionMobile";
+import AnimalRespawnLogicMobile from "../components/FarmOasis/AnimalRespawnLogicMobile";
 import AnimalRespawnExample from "../components/FarmOasis/AnimalRespawnExample";
 import TroopsConfiguration from "../components/FarmOasis/TroopsConfiguration";
-function FarmOasis() {
+function FarmOasisMobile() {
   const [pickRace, setPickRace] = useState(1);
   const [showRuleNumber, setShowRuleNumber] = useState(1);
   const RadioGroup = Radio.Group;
   const ruleOptions = [
-    { label: "基本說明", value: 1 },
-    { label: "生怪週期", value: 2 },
-    { label: "生怪邏輯", value: 3 },
-    { label: "生怪場景示例", value: 4 },
-    { label: "刷綠兵種配置", value: 5 },
+    { title: "基本說明", value: 1 },
+    { title: "生怪週期", value: 2 },
+    { title: "生怪邏輯", value: 3 },
+    { title: "生怪示例", value: 4 },
+    { title: "刷綠配置", value: 5 },
   ];
   function onRadioChange(e) {
     setPickRace(e.target.value);
@@ -106,34 +106,36 @@ function FarmOasis() {
 
   function handle4logicButtonOnClick(number) {
     setPickRace(1);
-    if (number === showRuleNumber) {
-      setShowRuleNumber(0);
-    } else {
+    if (number !== showRuleNumber) {
       setShowRuleNumber(number);
     }
   }
   return (
-    <div className="mLeft_1">
-      <Navbar />
-      <div className="mLeft_1 color_brown fw-bold fs2p5r borderBottom1Sad320d ">
+    <div className="">
+      <NavbarMobile />
+      <div className="mLeft_1 color_brown fw-bold fs1p5r borderBottom1Sad320d">
         關於刷綠
       </div>
-      <div className="mAll_1">
-        <Radio.Group
-          options={ruleOptions}
-          onChange={(e) => handle4logicButtonOnClick(e.target.value)}
-          value={showRuleNumber}
-          optionType="button"
-          buttonStyle="solid"
-        />
+      <div className="mTop_05 mRight_1 mBot_05 mLeft_1 flex justify-SpaceBetween hei3r l-hei3r align-center">
+        {ruleOptions.map((item) => {
+          return (
+            <div
+              className={`widFit fs08r hei2r l-hei2r pRight_04 pLeft_04 borderRadius02r ${showRuleNumber === item.value ? "bg_LG2724a9_f5e5e5 color_fff" : "border1S00003"}`}
+              key={item.value}
+              onClick={() => handle4logicButtonOnClick(item.value)}
+            >
+              {item.title}
+            </div>
+          );
+        })}
       </div>
-      {showRuleNumber === 1 && BasicDescription()}
+      {showRuleNumber === 1 && BasicDescriptionMobile()}
       {showRuleNumber === 2 && renderAnimalRespawnTable()}
-      {showRuleNumber === 3 && AnimalRespawnLogic()}
+      {showRuleNumber === 3 && AnimalRespawnLogicMobile()}
       {showRuleNumber === 4 && AnimalRespawnExample()}
       {showRuleNumber === 5 && renderTroppsComposition(pickRace)}
     </div>
   );
 }
 
-export default FarmOasis;
+export default FarmOasisMobile;

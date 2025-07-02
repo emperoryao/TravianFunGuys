@@ -1,4 +1,3 @@
-// components/NavbarMobile.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Popover, Button, Checkbox, message } from "antd";
@@ -58,6 +57,7 @@ function NavbarMobile() {
     <div className="flex align-center p_1 bg_f5f5f5 borderB1S hei3r">
       {favorites.map((favPath) => {
         const item = menuList.find((m) => m.path === favPath);
+        console.log("item", item);
         return (
           <div
             key={favPath}
