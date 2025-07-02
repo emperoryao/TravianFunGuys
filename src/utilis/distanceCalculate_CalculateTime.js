@@ -30,7 +30,7 @@ function calculateTime(
   let totalTimeInHours = initialTime + remainingTime;
   let totalSeconds = Number((totalTimeInHours * 3600).toFixed(0));
 
-  const isMap = leftHandInfo.label.includes("地圖");
+  const isMap = leftHandInfo?.label.includes("地圖");
 
   // 加成處理：回程時套用地圖類裝備；去程則套用旗類裝備
   if ((isReturn && isMap) || (!isReturn && !isMap)) {

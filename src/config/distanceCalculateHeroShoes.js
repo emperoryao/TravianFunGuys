@@ -21,7 +21,7 @@ const heroShoesList = [
   },
   {
     value: "25%",
-    label: "僱傭兵之靴",
+    label: "僱傭兵之靴  ",
     description: "移動速度增加25%|僅行軍距離超過20格的部分才起作用",
   },
   {

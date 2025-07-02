@@ -9,6 +9,7 @@ import mapSizeList from "../config/distanceCalculateMapSize";
 import tournamentSquareLevelList from "../config/distanceCalculateTSLevelList";
 import calculateTime from "../utilis/distanceCalculate_CalculateTime";
 import circulateDistance from "../utilis/distanceCalculate_CalculateDistance";
+import troopsData from "../config/troopsData";
 function TimeCalculateGo(...args) {
   return calculateTime(...args, false);
 }
@@ -16,7 +17,6 @@ function TimeCalculateGo(...args) {
 function TimeCalculateBack(...args) {
   return calculateTime(...args, true);
 }
-
 function DistanceCalculate() {
   const [x1, setX1] = useState(0);
   const [y1, setY1] = useState(0);
@@ -46,23 +46,70 @@ function DistanceCalculate() {
   const handleChangeArchiLv = (value) => {
     setArti(value);
   };
+  function getTroopsBySpeed(troopsData) {
+    console.log("getTroopsBySpeed執行了");
+    const result = {};
+    const seenNames = new Set();
+
+    Object.entries(troopsData).forEach(([race, units]) => {
+      const raceMark = race[0]; // 取種族第一字（例如："匈奴" => "匈"）
+
+      Object.entries(units).forEach(([unitName, unitData]) => {
+        const speed = unitData["速度"];
+        if (!speed) return;
+
+        const akaName = unitData.akaName;
+        const baseName = akaName || unitName;
+
+        // 已經收錄過就跳過
+        if (seenNames.has(baseName)) return;
+        seenNames.add(baseName);
+
+        // 是否為共用名稱（akaName 包含 "(全)"）
+        const isGlobalAka = !!akaName && akaName.includes("(全)");
+        const isZui = baseName.includes("嘴");
+        const isGaulHero = baseName.includes("高盧英雄");
+        // 預設名稱
+        let displayName = baseName;
+
+        // 判斷是否需要加種族註記
+        if (!isGlobalAka && !isZui && !isGaulHero) {
+          displayName += `(${raceMark})`;
+        }
+
+        // 加入結果
+        if (!result[speed]) result[speed] = [];
+        result[speed].push(displayName);
+      });
+    });
+
+    // 最終格式：速度為 key，名稱用 "、" 串起
+    const formattedResult = {};
+    for (const [speed, names] of Object.entries(result)) {
+      formattedResult[speed] = names.join("、");
+    }
+
+    return formattedResult;
+  }
+
+  // 使用方法
+  const troopsSpeed = getTroopsBySpeed(troopsData);
+
   function troopsSpeendBlock(result, JJCLV, arti, shoeInfo, leftHandInfo) {
     let returnResult = [];
-    let speedArray = [
-      3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-    ];
+    let speedArray = [3, 4, 5, 6, 7, 9, 10, 13, 14, 15, 16, 17, 19, 20, 22, 25];
     for (let i of speedArray) {
       returnResult.push(
         <div className="flex wid100">
-          <div className="wid30 hei1p6r l-hei1p6r  txt-center borderRight1S00003 borderBottom1S00003 borderLeft1S00003 ">
+          <div className="wid10 hei1p6r l-hei1p6r  txt-center borderRight1S00003 borderBottom1S00003 borderLeft1S00003 ">
             {i}
           </div>
-          <div className="wid35 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
+          <div className="wid13 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
             {result > 0
               ? TimeCalculateGo(result, i, JJCLV, arti, shoeInfo, leftHandInfo)
               : null}
           </div>
-          <div className="wid35 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
+          <div className="wid13 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
             {result > 0
               ? TimeCalculateBack(
                   result,
@@ -73,6 +120,9 @@ function DistanceCalculate() {
                   leftHandInfo
                 )
               : null}
+          </div>
+          <div className="wid64 hei1p6r l-hei1p6r txt-center borderRight1S00003 borderBottom1S00003">
+            {troopsSpeed[i]}
           </div>
         </div>
       );
@@ -94,7 +144,7 @@ function DistanceCalculate() {
         行軍計算器
       </div>
       <div className="flex mLeft_2 mTop_05">
-        <div className="wid25">
+        <div className="wid22">
           <div className="flex wid100 hei2r l-hei2r">
             <div className="wid40 flex">
               <div className="wid50 txt-center">
@@ -220,21 +270,24 @@ function DistanceCalculate() {
             </div>
           </div>
         </div>
-        <div className="wid20">
+        <div className="wid45">
           <div className="flex wid100">
-            <div className="fw-bold wid30 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 borderLeft1S00003">
-              兵種速度
+            <div className="fw-bold wid10 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 borderLeft1S00003">
+              移速/hr
             </div>
-            <div className="fw-bold wid35 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 ">
+            <div className="fw-bold wid13 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 ">
               去程所需時間
             </div>
-            <div className="fw-bold wid35 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 ">
+            <div className="fw-bold wid13 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 ">
               回程所需時間
+            </div>
+            <div className="fw-bold wid64 txt-center hei2r l-hei2r borderTop1S00003 borderRight1S00003 borderBottom1S00003 ">
+              兵種對照表
             </div>
           </div>
           {troopsSpeendBlock(result, JJCLV, arti, shoeInfo, leftHandInfo)}
         </div>
-        <div className="wid40">
+        {/*<div className="wid30">
           <div>注意事項</div>
           <ol>
             <li>
@@ -247,7 +300,7 @@ function DistanceCalculate() {
               當然我們知道小馬刺生效的情境下，行軍速度永遠不可能是每小時6格，但+3/4/5還是可以用作移動速度推導。
             </li>
           </ol>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

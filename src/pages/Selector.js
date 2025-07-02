@@ -3,11 +3,8 @@ import { Select, Space } from "antd";
 
 const Selector = ({ item, value, onChange, ...props }) => {
   const handleChange = (value) => {
-    console.log("value", value);
     onChange(value); // 调用父组件传递的 onChange 函数，将选中的值传递给父组件
-    console.log("props", props);
   };
-  console.log("props", props);
   return (
     <Space wrap>
       <Select
