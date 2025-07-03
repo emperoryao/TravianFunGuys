@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveRoute from "./components/ResponsiveRoute";
 import BuildingList from "./pages/BuildingList";
 import BuildingListMobile from "./pages/BuildingListMobile";
-import CulturePoints from "./pages/CulturePoints";
 import FarmOasis from "./pages/FarmOasis";
 import FarmOasisMobile from "./pages/FarmOasisMobile";
 import Lobby from "./pages/Lobby";
 import LobbyMobile from "./pages/LobbyMobile";
 import DistanceCalculate from "./pages/DistanceCalculate";
+import DistanceCalculateMobile from "./pages/DistanceCalculateMobile";
 import "./style/common.less";
 function Router() {
   return (
@@ -41,10 +41,16 @@ function Router() {
             />
           }
         />
-
-        <Route path="/CulturePoints" element={<CulturePoints />} />
-        <Route path="/DistanceCalculate" element={<DistanceCalculate />} />
-        {/* Add more routes as needed */}
+        <Route
+          path="/DistanceCalculate"
+          element={
+            <ResponsiveRoute
+              desktopComponent={DistanceCalculate}
+              mobileComponent={DistanceCalculateMobile}
+            />
+          }
+        />
+        {/* <Route path="/CulturePoints" element={<CulturePoints />} /> */}
       </Routes>
     </BrowserRouter>
   );

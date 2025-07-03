@@ -50,7 +50,7 @@ function renderRows(sortedArray, handleClick) {
     console.log("target", target);
     return (
       <div
-        className={`flex buildinginCalculator ${value % 2 === 1 ? "bg_e3fdff" : "bg_f7f7f7"}`}
+        className={`flex ${value % 2 === 1 ? "bg_e3fdff" : "bg_f7f7f7"}`}
         key={`${key}-${value}-${index}`}
         onClick={() => handleClick(item)}
       >

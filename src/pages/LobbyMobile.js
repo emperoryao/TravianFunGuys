@@ -24,9 +24,9 @@ function LobbyMobile() {
     <div className="">
       <NavbarMobile />
       <div className="mLeft_5p">
-        <div className="fs2r mTop_05 flex">
+        <div className="fs2r mTop_05 flex align-center">
           <div className="wid10">
-            <img className="wid100" alt="" src={funGuysIcon} />
+            <img className="wid100 verticalMiddle" alt="" src={funGuysIcon} />
           </div>
           <div className="mLeft_05">放牛班資料庫 </div>
         </div>

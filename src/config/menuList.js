@@ -3,6 +3,6 @@ const menuList = [
   { label: "刷綠", path: "/FarmOasis" },
   { label: "建築資源", path: "/BuildingList" },
   //{ label: "文明點", path: "/CulturePoints" },
-  { label: "距離計算器", path: "/DistanceCalculate" },
+  { label: "行軍計算器", path: "/DistanceCalculate" },
 ];
 export default menuList;

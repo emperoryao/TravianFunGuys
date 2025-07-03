@@ -34,7 +34,7 @@ function BuildingListItemMobile() {
       <div className="fs1r hei2r l-hei2r pLeft_40p">
         {buildingObj[categories[currentCategory]].map((buildings) => (
           <div
-            className="build txt-center wid40 mTop_05 borderRadius05r bg_BuildingCateGorySelectd2"
+            className="build txt-center wid45 mTop_05 borderRadius05r bg_BuildingCateGorySelectd2"
             key={buildings}
           >
             <div onClick={() => handleBuidingOnClick(buildings)}>
