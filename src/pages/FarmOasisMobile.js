@@ -110,7 +110,7 @@ function FarmOasisMobile() {
         {ruleOptions.map((item) => {
           return (
             <div
-              className={`widFit fs1r hei2r l-hei2r pRight_04 pLeft_04 borderRadius02r ${showRuleNumber === item.value ? "bg_FarmOasisSelectd color_fff" : "border1S00003 bg_FarmOasisUnSelectd"}`}
+              className={`widFit fs09r hei2r l-hei2r pRight_02 pLeft_02 borderRadius02r ${showRuleNumber === item.value ? "bg_FarmOasisSelectd color_fff border1S2d2d31" : "border1S2d2d31 bg_FarmOasisUnSelectd"}`}
               key={item.value}
               onClick={() => handle4logicButtonOnClick(item.value)}
             >
