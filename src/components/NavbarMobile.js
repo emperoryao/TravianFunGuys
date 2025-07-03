@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Popover, Button, Checkbox, message } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import menuList from "../config/menuList";
 import useFavoriteMenu from "../hooks/useFavoriteMenu";
 import "../style/common.less";
