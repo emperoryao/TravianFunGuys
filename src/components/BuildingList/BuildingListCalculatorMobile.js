@@ -65,17 +65,19 @@ function renderRows(sortedArray, handleClick) {
   });
 }
 
-function BuildingListCalculator() {
+function BuildingListCalculatorMobile() {
   const { saveArray, handleBuildLvOnClick } = useBuildingStore();
 
   const sortedArray = getSortedSaveArray(saveArray);
   const totals = calculateTotalResources(saveArray);
 
   return (
-    <div className="wid35">
-      <div className="color_0600ff l-hei1p7r hei1p7r mTop_02 mBot_05 flex">
-        <span className="fs20px fw-bold">當前統計之建築清單</span>{" "}
-        <span className="color_cf2321">點擊不要的建築項目即可從清單中移除</span>
+    <div className="wid100">
+      <div className="BuildingListMobileTile l-hei1p7r hei1p7r mTop_02 mBot_05 flex fs1r fw-bold">
+        當前統計之建築清單
+      </div>
+      <div className="color_0600ff fs09r mBot_05">
+        點擊不要的建築項目即可從清單中移除
       </div>
 
       <div>
@@ -85,7 +87,7 @@ function BuildingListCalculator() {
           <div className={usuallyCSS}>泥</div>
           <div className={usuallyCSS}>鐵</div>
           <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明點</div>
+          <div className={usuallyCSS}>文明</div>
           <div className="wid15 txt-center border1S7E7E7E">總和</div>
         </div>
 
@@ -102,7 +104,7 @@ function BuildingListCalculator() {
           <div className={usuallyCSS}>泥</div>
           <div className={usuallyCSS}>鐵</div>
           <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明點</div>
+          <div className={usuallyCSS}>文明</div>
           <div className="wid15 txt-center border1S7E7E7E">總和</div>
         </div>
         <div className="flex">
@@ -119,4 +121,4 @@ function BuildingListCalculator() {
   );
 }
 
-export default BuildingListCalculator;
+export default BuildingListCalculatorMobile;

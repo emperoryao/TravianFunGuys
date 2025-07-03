@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResponsiveRoute from "./components/ResponsiveRoute";
 import BuildingList from "./pages/BuildingList";
+import BuildingListMobile from "./pages/BuildingListMobile";
 import CulturePoints from "./pages/CulturePoints";
 import FarmOasis from "./pages/FarmOasis";
 import FarmOasisMobile from "./pages/FarmOasisMobile";
@@ -31,7 +32,16 @@ function Router() {
             />
           }
         />
-        <Route path="/BuildingList" element={<BuildingList />} />
+        <Route
+          path="/BuildingList"
+          element={
+            <ResponsiveRoute
+              desktopComponent={BuildingList}
+              mobileComponent={BuildingListMobile}
+            />
+          }
+        />
+
         <Route path="/CulturePoints" element={<CulturePoints />} />
         <Route path="/DistanceCalculate" element={<DistanceCalculate />} />
         {/* Add more routes as needed */}
