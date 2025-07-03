@@ -25,11 +25,11 @@ function BuildingListCostDetailMobile() {
 
     return (
       <div
-        className="flex bulidingLevelList"
+        className="flex bulidingLevelList fs07r"
         key={lv}
         onClick={() => handleBuildLvOnClick({ [build]: lv })}
       >
-        <div className={`wid8 ${rowClass}`}>{lv}</div>
+        <div className={`wid ${rowClass}`}>{lv}</div>
         <div className={`wid15 ${rowClass}`}>{wood}</div>
         <div className={`wid15 ${rowClass}`}>{brick}</div>
         <div className={`wid15 ${rowClass}`}>{iron}</div>
@@ -42,13 +42,13 @@ function BuildingListCostDetailMobile() {
   };
 
   return (
-    <div className="wid35 mRight_4p mLeft_4p">
+    <div className="wid100 mRight_4p mLeft_4p">
       <div className="flex">
         <div className="color_0600ff l-hei1p7r hei1p7r wid30 mTop_02 mBot_05 fw-bold">
           {build}
         </div>
         {build && (
-          <div className="l-hei1p7r hei1p7r wid30 mTop_02 mBot_05 fw-bold">
+          <div className="l-hei1p7r hei1p7r wid70 mTop_02 mBot_05 fw-bold">
             <Checkbox
               checked={multiple}
               onChange={(e) => setMultiple(e.target.checked)}

@@ -3,7 +3,8 @@ import useBuildingStore from "../../store/buildingListStroe";
 import resourcesList from "../../config/buildingListResourceList";
 import "../../style/common.less";
 
-const usuallyCSS = "wid10 txt-center border1S7E7E7E";
+const usuallyCSS = "wid16 txt-center border1S7E7E7E";
+const usuallyCPCSS = "wid8 txt-center border1S7E7E7E";
 // 計算資源總和
 function calculateTotalResources(saveArray) {
   const resultArray = saveArray.map((entry) => {
@@ -53,12 +54,12 @@ function renderRows(sortedArray, handleClick) {
         key={`${key}-${value}-${index}`}
         onClick={() => handleClick(item)}
       >
-        <div className="wid25 txt-center border1S7E7E7E">{`${key} - 等級${value}`}</div>
+        <div className="part4 wid20 txt-center border1S7E7E7E">{`${key}${value}`}</div>
         <div className={usuallyCSS}>{target.wood}</div>
         <div className={usuallyCSS}>{target.brick}</div>
         <div className={usuallyCSS}>{target.iron}</div>
         <div className={usuallyCSS}>{target.corp}</div>
-        <div className={usuallyCSS}>{target.CP}</div>
+        <div className={usuallyCPCSS}>{target.CP}</div>
         <div className="wid15 txt-center border1S7E7E7E">{target.total}</div>
       </div>
     );
@@ -73,47 +74,47 @@ function BuildingListCalculatorMobile() {
 
   return (
     <div className="wid100">
-      <div className="BuildingListMobileTile l-hei1p7r hei1p7r mTop_02 mBot_05 flex fs1r fw-bold">
+      <div className="BuildingListMobileTile mLeft_1 l-hei1p7r hei1p7r mTop_02 mBot_05 flex fs1r fw-bold">
         當前統計之建築清單
       </div>
-      <div className="color_0600ff fs09r mBot_05">
+      <div className="color_0600ff fs09r mBot_05 mLeft_1">
         點擊不要的建築項目即可從清單中移除
       </div>
 
       <div>
-        <div className="flex">
-          <div className="wid25 txt-center border1S7E7E7E">建築物</div>
+        <div className="flex fs07r">
+          <div className="part1 wid20 txt-center border1S7E7E7E">建築物</div>
           <div className={usuallyCSS}>木</div>
           <div className={usuallyCSS}>泥</div>
           <div className={usuallyCSS}>鐵</div>
           <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明</div>
+          <div className={usuallyCPCSS}>文明</div>
           <div className="wid15 txt-center border1S7E7E7E">總和</div>
         </div>
 
         {/* 建築列 */}
-        <div className="bias">
+        <div className="bias fs07r">
           {renderRows(sortedArray, handleBuildLvOnClick)}
         </div>
       </div>
 
       <div className="mTop_05">
-        <div className="flex">
-          <div className="wid25 txt-center border1S7E7E7E"></div>
+        <div className="flex fs07r">
+          <div className="part2 wid20 txt-center border1S7E7E7E"></div>
           <div className={usuallyCSS}>木</div>
           <div className={usuallyCSS}>泥</div>
           <div className={usuallyCSS}>鐵</div>
           <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明</div>
+          <div className={usuallyCPCSS}>文明</div>
           <div className="wid15 txt-center border1S7E7E7E">總和</div>
         </div>
-        <div className="flex">
-          <div className="wid25 txt-center border1S7E7E7E">總和</div>
+        <div className="flex fs07r">
+          <div className="part3 wid20 txt-center border1S7E7E7E">總和</div>
           <div className={usuallyCSS}>{totals.wood}</div>
           <div className={usuallyCSS}>{totals.brick}</div>
           <div className={usuallyCSS}>{totals.iron}</div>
           <div className={usuallyCSS}>{totals.corp}</div>
-          <div className={usuallyCSS}>{totals.CP}</div>
+          <div className={usuallyCPCSS}>{totals.CP}</div>
           <div className="wid15 txt-center border1S7E7E7E">{totals.total}</div>
         </div>
       </div>
