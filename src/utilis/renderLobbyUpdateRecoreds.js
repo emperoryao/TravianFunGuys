@@ -5,6 +5,10 @@ export default function renderUpdateRecord(params) {
     <div className={params}>
       <Timeline>
         <Timeline.Item>
+          <span className="newReleaseMobile">新增</span> 手機版建築資源計算器
+          2025-07-03
+        </Timeline.Item>
+        <Timeline.Item>
           <span className="newReleaseMobile">新增</span> 手機版刷綠頁面
           2025-07-03
         </Timeline.Item>

@@ -91,7 +91,9 @@ function BuildingListCalculator() {
 
         {/* 建築列 */}
         <div className="bias">
-          {renderRows(sortedArray, handleBuildLvOnClick)}
+          {renderRows(sortedArray, (item, isDeleteMode = true) =>
+            handleBuildLvOnClick(item, isDeleteMode)
+          )}
         </div>
       </div>
 

@@ -11,7 +11,7 @@ const useBuildingStore = create((set, get) => ({
   setTotalResourceArray: (totalResourceArray) => set({ totalResourceArray }),
   setMultiple: (multiple) => set({ multiple }),
   setMultipleStartItem: (item) => set({ multipleStartItem: item }),
-  handleBuildLvOnClick: (NewItem) => {
+  handleBuildLvOnClick: (NewItem, isDeleteMode = false) => {
     const {
       saveArray,
       multiple,
@@ -79,13 +79,13 @@ const useBuildingStore = create((set, get) => ({
         const exist = saveArray.some(
           (item) => item[newItemkey] === NewItem[newItemkey]
         );
-        if (exist) {
+        if (exist && isDeleteMode) {
           const filteredArray = saveArray.filter(
             (item) => JSON.stringify(item) !== JSON.stringify(NewItem)
           );
           setSaveArray(filteredArray);
           return;
-        } else {
+        } else if (!exist) {
           setSaveArray([...saveArray, NewItem]);
           return;
         }

@@ -3,7 +3,7 @@ import useBuildingStore from "../../store/buildingListStroe";
 import resourcesList from "../../config/buildingListResourceList";
 import "../../style/common.less";
 
-const usuallyCSS = "wid16 txt-center border1S7E7E7E";
+const usuallyCSS = "wid13 txt-center border1S7E7E7E";
 const usuallyCPCSS = "wid8 txt-center border1S7E7E7E";
 // 計算資源總和
 function calculateTotalResources(saveArray) {
@@ -50,7 +50,7 @@ function renderRows(sortedArray, handleClick) {
     console.log("target", target);
     return (
       <div
-        className="flex buildinginCalculator"
+        className={`flex buildinginCalculator ${value % 2 === 1 ? "bg_e3fdff" : "bg_f7f7f7"}`}
         key={`${key}-${value}-${index}`}
         onClick={() => handleClick(item)}
       >
@@ -74,7 +74,7 @@ function BuildingListCalculatorMobile() {
 
   return (
     <div className="wid100">
-      <div className="BuildingListMobileTile mLeft_1 l-hei1p7r hei1p7r mTop_02 mBot_05 flex fs1r fw-bold">
+      <div className="BuildingListMobileTile mLeft_1 l-hei1p7r hei1p7r mTop_02 flex fs1r fw-bold">
         當前統計之建築清單
       </div>
       <div className="color_0600ff fs09r mBot_05 mLeft_1">
@@ -93,8 +93,10 @@ function BuildingListCalculatorMobile() {
         </div>
 
         {/* 建築列 */}
-        <div className="bias fs07r">
-          {renderRows(sortedArray, handleBuildLvOnClick)}
+        <div className="bias fs07r maxhei15r flowAuto">
+          {renderRows(sortedArray, (item, isDeleteMode = true) =>
+            handleBuildLvOnClick(item, isDeleteMode)
+          )}
         </div>
       </div>
 

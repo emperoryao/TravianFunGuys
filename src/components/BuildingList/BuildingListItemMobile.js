@@ -19,7 +19,7 @@ function BuildingListItemMobile() {
         {categories.map((item, index) => {
           return (
             <div
-              className={`widFit fs09r hei2r l-hei2r pRight_02 pLeft_02 borderRadius02r ${currentCategory === index ? "bg_FarmOasisSelectd color_fff border1S2d2d31" : "border1S2d2d31 bg_FarmOasisUnSelectd"}`}
+              className={`widFit fs09r hei2r l-hei2r pRight_02 pLeft_02 borderRadius02r ${currentCategory === index ? "bg_BuildingCateGorySelectd color_fff border1S2d2d31" : "border1S2d2d31 bg_FarmOasisUnSelectd"}`}
               key={index}
               onClick={(e) => {
                 setCurrentCategory(index);
@@ -34,7 +34,7 @@ function BuildingListItemMobile() {
       <div className="fs1r hei2r l-hei2r pLeft_40p">
         {buildingObj[categories[currentCategory]].map((buildings) => (
           <div
-            className="build txt-center wid40 mTop_05 borderRadius05r bg_030095 color_fff"
+            className="build txt-center wid40 mTop_05 borderRadius05r bg_BuildingCateGorySelectd2"
             key={buildings}
           >
             <div onClick={() => handleBuidingOnClick(buildings)}>
