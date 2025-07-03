@@ -1,6 +1,6 @@
 function AnimalRespawnLogicMobile() {
   return (
-    <div className="mLeft_1 wid92 pBot_25">
+    <div className="mLeft_1 wid92 pBot_4p5">
       <div className="fs1p2r fw-bold FarmOasisMobileTitle">
         已知的綠洲觸發生怪時間點
       </div>

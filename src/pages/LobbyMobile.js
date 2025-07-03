@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavbarMobile from "../components/NavbarMobile";
 import "../style/common.less";
 import renderUpdateRecord from "../utilis/renderLobbyUpdateRecoreds";
-import funGuysIcon from "../images/funGuysIcon.png";
+import funGuysIcon from "../images/funGuysIcon20250703ver.png";
 const handleOnSubmit = (account, pwd, setOriginal, setShowTipMsg) => {
   if (account === "Fun" && pwd === "0000") {
     sessionStorage.setItem("FunguysMember", JSON.stringify(true));

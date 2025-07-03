@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import NavbarMobile from "../components/NavbarMobile";
-import { Radio } from "antd";
 import { raceChinese, raceInfo } from "../config/farmOasisRaceInfo";
 import animals from "../config/farmOasisAnimalData";
 import BasicDescriptionMobile from "../components/FarmOasis/BasicDescriptionMobile";
 import AnimalRespawnLogicMobile from "../components/FarmOasis/AnimalRespawnLogicMobile";
-import AnimalRespawnExample from "../components/FarmOasis/AnimalRespawnExample";
-import TroopsConfiguration from "../components/FarmOasis/TroopsConfiguration";
+import AnimalRespawnExampleMobile from "../components/FarmOasis/AnimalRespawnExampleMobile";
+import TroopsConfigurationMobile from "../components/FarmOasis/TroopsConfigurationMobile";
 function FarmOasisMobile() {
   const [pickRace, setPickRace] = useState(1);
-  const [showRuleNumber, setShowRuleNumber] = useState(1);
-  const RadioGroup = Radio.Group;
+  const [showRuleNumber, setShowRuleNumber] = useState(5);
   const ruleOptions = [
     { title: "基本說明", value: 1 },
     { title: "生怪週期", value: 2 },
@@ -18,9 +16,6 @@ function FarmOasisMobile() {
     { title: "生怪示例", value: 4 },
     { title: "刷綠配置", value: 5 },
   ];
-  function onRadioChange(e) {
-    setPickRace(e.target.value);
-  }
   function renderAnimalRespawnTable() {
     return (
       <div className="mLeft_1">
@@ -50,37 +45,32 @@ function FarmOasisMobile() {
       </div>
     );
   }
-  function renderTroppsComposition() {
+  function renderTroppsCompositionMobile() {
     return (
-      <div className="mLeft_1">
+      <div className="mLeft_1 borderTop1Sad320d pTop_1 pBot_65">
         {
-          <div>
-            <RadioGroup
-              onChange={onRadioChange}
-              value={pickRace} // ✅ 這裡加上 value 綁定選中的值
-              className="mBot_1"
-            >
-              <Radio key="1" value={1}>
-                條頓
-              </Radio>
-              <Radio key="2" value={2}>
-                羅馬
-              </Radio>
-              <Radio key="3" value={3}>
-                高盧
-              </Radio>
-              <Radio key="4" value={4}>
-                匈奴
-              </Radio>
-              <Radio key="5" value={5}>
-                埃及
-              </Radio>
-            </RadioGroup>
+          <div className="">
+            <div className="flex txt-center mBot_05">
+              {raceChinese.map((item, index) => {
+                return (
+                  <div
+                    className={`wid10 mRight_5p pRight_04 pLeft_04 fs1r hei2r l-hei2r borderRadius02r ${pickRace === index + 1 ? "bg_00007 color_fff" : "border1S00003 bg_fff"}`}
+                    key={index}
+                    onClick={() => setPickRace(index + 1)}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+
             {pickRace ? (
               <div>
-                <div>{raceChinese[pickRace - 1]}人刷綠配置</div>
-                <div className="flex flex-wrap">
-                  <TroopsConfiguration
+                <div className="fs1p2r fw-bold FarmOasisMobileTitle mBot_05">
+                  {raceChinese[pickRace - 1]}人刷綠配置
+                </div>
+                <div className="flex flexWrap_wrap">
+                  <TroopsConfigurationMobile
                     title="最佳配置"
                     config={
                       raceInfo[raceChinese[pickRace - 1]].bestConfiguration
@@ -89,7 +79,7 @@ function FarmOasisMobile() {
                   {(
                     raceInfo[raceChinese[pickRace - 1]].otherConfiguration || []
                   ).map((conf, i) => (
-                    <TroopsConfiguration
+                    <TroopsConfigurationMobile
                       key={i}
                       title={`其他配置${i + 1}`}
                       config={conf}
@@ -120,7 +110,7 @@ function FarmOasisMobile() {
         {ruleOptions.map((item) => {
           return (
             <div
-              className={`widFit fs08r hei2r l-hei2r pRight_04 pLeft_04 borderRadius02r ${showRuleNumber === item.value ? "bg_LG2724a9_f5e5e5 color_fff" : "border1S00003"}`}
+              className={`widFit fs1r hei2r l-hei2r pRight_04 pLeft_04 borderRadius02r ${showRuleNumber === item.value ? "bg_FarmOasisSelectd color_fff" : "border1S00003 bg_FarmOasisUnSelectd"}`}
               key={item.value}
               onClick={() => handle4logicButtonOnClick(item.value)}
             >
@@ -132,8 +122,8 @@ function FarmOasisMobile() {
       {showRuleNumber === 1 && BasicDescriptionMobile()}
       {showRuleNumber === 2 && renderAnimalRespawnTable()}
       {showRuleNumber === 3 && AnimalRespawnLogicMobile()}
-      {showRuleNumber === 4 && AnimalRespawnExample()}
-      {showRuleNumber === 5 && renderTroppsComposition(pickRace)}
+      {showRuleNumber === 4 && AnimalRespawnExampleMobile()}
+      {showRuleNumber === 5 && renderTroppsCompositionMobile(pickRace)}
     </div>
   );
 }

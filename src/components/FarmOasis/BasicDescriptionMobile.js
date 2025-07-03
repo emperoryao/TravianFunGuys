@@ -1,7 +1,7 @@
 function BasicDescriptionMobile() {
   return (
     <div className="mLeft_1">
-      <div>為什麼要刷綠?</div>
+      <div className="fs1p2r fw-bold FarmOasisMobileTitle">為什麼要刷綠?</div>
       <br />
       <div>現階段的綠洲擊殺動物</div>
       <div>會依照動物吃米數給予40*4色*吃米數的背包資源</div>

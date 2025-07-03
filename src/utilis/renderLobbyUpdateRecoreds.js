@@ -5,6 +5,10 @@ export default function renderUpdateRecord(params) {
     <div className={params}>
       <Timeline>
         <Timeline.Item>
+          <span className="newReleaseMobile">新增</span> 手機版刷綠頁面
+          2025-07-03
+        </Timeline.Item>
+        <Timeline.Item>
           <span className="newReleaseDeskTop">新增</span> 距離計算器
           兵種速度對照表 2025-07-02
         </Timeline.Item>
@@ -22,7 +26,7 @@ export default function renderUpdateRecord(params) {
         </Timeline.Item>
         <Timeline.Item>優化 刷綠與建築資源計算頁面 於 2025-06-30</Timeline.Item>
         <Timeline.Item>
-          <span className="newReleaseMobile">新增</span> 手機板大廳 於
+          <span className="newReleaseMobile">新增</span> 手機版大廳 於
           2025-06-30
         </Timeline.Item>
         <Timeline.Item>
