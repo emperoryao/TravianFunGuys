@@ -118,7 +118,7 @@ function BuildingListMobile() {
               </div>
             </div>
             <div className="flex mTop_1 align-center txt-center fs1r">
-              <div className="pLeft_15p wid40">顯示區高度：</div>
+              <div className="pLeft_10p wid40">顯示區高度：</div>
               <div
                 className="wid5 border1S00003 pTop_02 pRight_05 pBot_02 pLeft_05 bg_fff rgba_95"
                 onClick={(e) => hanldeDeCrease(e, "display")}
