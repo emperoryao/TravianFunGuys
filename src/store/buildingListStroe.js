@@ -1,24 +1,42 @@
 import { create } from "zustand";
 
 const useBuildingStore = create((set, get) => ({
+  // === 高度狀態 ===
+  displayHeight: Number(localStorage.getItem("displayHeight")) || 21,
+  calculatorHeight: Number(localStorage.getItem("calculatorHeight")) || 12,
+
+  setDisplayHeight: (val) => {
+    const newVal = Math.max(5, Math.min(35, val));
+    localStorage.setItem("displayHeight", newVal);
+    set({ displayHeight: newVal });
+  },
+  setCalculatorHeight: (val) => {
+    const newVal = Math.max(5, Math.min(35, val));
+    localStorage.setItem("calculatorHeight", newVal);
+    set({ calculatorHeight: newVal });
+  },
+
+  // === 建築狀態 ===
   build: null,
   saveArray: [],
   totalResourceArray: [],
   multiple: false,
   multipleStartItem: {},
   isMultipleCount: false,
+
   setIsMultipleCount: (value) => set({ isMultipleCount: value }),
   setBuild: (build) => set({ build }),
   setSaveArray: (saveArray) => set({ saveArray }),
   setTotalResourceArray: (totalResourceArray) => set({ totalResourceArray }),
   setMultiple: (checked) => {
     set({ multiple: checked });
-
     if (!checked) {
       set({ multipleStartItem: {} });
     }
   },
   setMultipleStartItem: (item) => set({ multipleStartItem: item }),
+
+  // === 等級點擊邏輯 ===
   handleBuildLvOnClick: (NewItem, isDeleteMode = false) => {
     const {
       saveArray,
@@ -33,10 +51,8 @@ const useBuildingStore = create((set, get) => ({
 
     const key = Object.keys(NewItem)[0];
     const value = Object.values(NewItem)[0];
-
     const exist = saveArray.some((item) => item[key] === value);
 
-    // 👉 若為刪除行為
     if (exist && isDeleteMode) {
       if (isMultipleCount) setIsMultipleCount(false);
       const filtered = saveArray.filter((item) => !(item[key] === value));
@@ -44,17 +60,14 @@ const useBuildingStore = create((set, get) => ({
       return;
     }
 
-    // 👉 多選起點未設定 → 記錄起點
     if (multiple && Object.keys(multipleStartItem).length === 0) {
       setMultipleStartItem(NewItem);
       return;
     }
 
-    // 👉 多選範圍完成
     if (multiple && Object.keys(multipleStartItem).length !== 0) {
       const key1 = Object.keys(multipleStartItem)[0];
       const key2 = Object.keys(NewItem)[0];
-
       if (key1 === key2) {
         let [value1, value2] = [
           Object.values(multipleStartItem)[0],
@@ -68,7 +81,7 @@ const useBuildingStore = create((set, get) => ({
           if (!isNaN(parsed) && parsed > 0) {
             count = parsed;
           } else {
-            return; // 輸入無效
+            return;
           }
         }
 
@@ -94,16 +107,13 @@ const useBuildingStore = create((set, get) => ({
         return;
       }
 
-      // 若多選的 key 不一致，重置多選
       setMultiple(false);
       setMultipleStartItem({});
       return;
     }
 
-    // 👉 如果從多選切換為單選中間有殘留 → 阻止再進入單選
     if (multiple) return;
 
-    // 👉 單選處理（可含複數）
     let count = 1;
     if (isMultipleCount) {
       const input = window.prompt("請輸入此等級要計算幾次？", "1");
@@ -119,14 +129,11 @@ const useBuildingStore = create((set, get) => ({
       ? { [key]: value, count }
       : { [key]: value };
 
-    // ✅ 修正：單選也要檢查是否已存在（含 count）
     const alreadyExists = saveArray.some((item) => {
       return item[key] === value && (!item.count || item.count === count);
     });
 
-    if (alreadyExists) {
-      return; // 不重複加入
-    }
+    if (alreadyExists) return;
 
     setSaveArray([...saveArray, finalItem]);
     if (isMultipleCount) setIsMultipleCount(false);

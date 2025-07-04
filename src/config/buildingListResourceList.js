@@ -3836,7 +3836,7 @@ const resourcesList = [
         OtherInfo: "7.4x",
       },
     ],
-    "城牆(羅馬)": [
+    羅馬牆: [
       {
         lv: 1,
         wood: 70,
@@ -4098,7 +4098,7 @@ const resourcesList = [
         ER: "17:32:10",
       },
     ],
-    "土牆(條頓)": [
+    條頓牆: [
       {
         lv: 1,
         wood: 120,
@@ -5488,7 +5488,7 @@ const resourcesList = [
         OtherInfo: "7.4x",
       },
     ],
-    "臨時牆(匈奴)": [
+    匈奴牆: [
       {
         lv: 1,
         wood: 50,
@@ -5750,7 +5750,7 @@ const resourcesList = [
         ER: "17:32:10",
       },
     ],
-    "木牆(高盧)": [
+    高盧牆: [
       {
         lv: 1,
         wood: 160,
@@ -6576,7 +6576,7 @@ const resourcesList = [
         OtherInfo: "7.4x",
       },
     ],
-    "石牆(埃及)": [
+    埃及牆: [
       {
         lv: 1,
         wood: 110,

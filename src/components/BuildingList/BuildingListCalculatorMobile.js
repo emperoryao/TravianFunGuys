@@ -2,7 +2,6 @@ import React from "react";
 import useBuildingStore from "../../store/buildingListStroe";
 import resourcesList from "../../config/buildingListResourceList";
 import "../../style/common.less";
-
 const usuallyCSS = "wid13 txt-center border1S7E7E7E";
 const usuallyCPCSS = "wid8 txt-center border1S7E7E7E";
 
@@ -98,6 +97,7 @@ function BuildingListCalculatorMobile() {
 
   const sortedArray = getSortedSaveArray(saveArray);
   const totals = calculateTotalResources(saveArray);
+  const { calculatorHeight } = useBuildingStore();
 
   return (
     <div className="wid100">
@@ -121,7 +121,10 @@ function BuildingListCalculatorMobile() {
           <div className="wid14 txt-center border1S7E7E7E">總和</div>
         </div>
 
-        <div className="bias fs07r maxhei12r flowAuto">
+        <div
+          className="bias fs07r flowAuto"
+          style={{ maxHeight: calculatorHeight + "rem" }}
+        >
           {renderRows(sortedArray, (item, isDeleteMode = true) =>
             handleBuildLvOnClick(item, isDeleteMode)
           )}

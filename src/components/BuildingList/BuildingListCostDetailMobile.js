@@ -3,7 +3,6 @@ import { Checkbox } from "antd";
 import useBuildingStore from "../../store/buildingListStroe";
 import resourcesList from "../../config/buildingListResourceList";
 import "../../style/common.less";
-
 function BuildingListCostDetailMobile() {
   const {
     build,
@@ -15,12 +14,12 @@ function BuildingListCostDetailMobile() {
     setIsMultipleCount,
     handleBuildLvOnClick,
   } = useBuildingStore();
-
   const resourceData = resourcesList[0][build] || [];
   const compareValue =
     Object.values(multipleStartItem).length > 0
       ? Object.values(multipleStartItem)[0]
       : "";
+  const { displayHeight } = useBuildingStore();
 
   const renderRow = ({ lv, wood, brick, iron, corp, pop, CP, total }) => {
     const isActive = compareValue === lv;
@@ -85,7 +84,7 @@ function BuildingListCostDetailMobile() {
         )}
       </div>
 
-      <div className="flowAuto maxhei21r">
+      <div className="flowAuto" style={{ maxHeight: displayHeight + "rem" }}>
         <div className="flex fs07r">
           <div className="wid10 txt-center border1S7E7E7E">等級</div>
           <div className="wid15 txt-center border1S7E7E7E">木</div>
