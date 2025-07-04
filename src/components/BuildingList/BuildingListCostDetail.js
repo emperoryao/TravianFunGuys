@@ -11,6 +11,9 @@ function BuildingListCostDetail() {
     setMultiple,
     multipleStartItem,
     handleBuildLvOnClick,
+    isMultipleCount,
+    setIsMultipleCount,
+    setMultipleStartItem,
   } = useBuildingStore();
 
   const resourceData = resourcesList[0][build] || [];
@@ -48,17 +51,37 @@ function BuildingListCostDetail() {
           {build}
         </div>
         {build && (
-          <div className="l-hei1p7r hei1p7r wid30 mTop_02 mBot_05 fw-bold">
-            <Checkbox
-              checked={multiple}
-              onChange={(e) => setMultiple(e.target.checked)}
-            >
-              <span
-                className={`fs1r ${multiple ? "color_cf2321" : "color_8a8a8a"}`}
+          <div className="l-hei1p7r hei1p7r wid70 mTop_02 mBot_05 fw-bold flex">
+            <div className="wid50">
+              <Checkbox
+                checked={multiple}
+                onChange={(e) => setMultiple(e.target.checked)}
               >
-                選取多個等級
-              </span>
-            </Checkbox>
+                <span
+                  className={`fs1r ${multiple ? "color_cf2321" : "color_8a8a8a"}`}
+                >
+                  選取多個等級
+                </span>
+              </Checkbox>
+            </div>
+            <div className="wid50">
+              <Checkbox
+                checked={isMultipleCount}
+                onChange={(e) => {
+                  const checked = e.target.checked;
+                  setIsMultipleCount(checked);
+                  if (!checked) {
+                    setMultipleStartItem({});
+                  }
+                }}
+              >
+                <span
+                  className={`fs1r ${isMultipleCount ? "color_cf2321" : "color_8a8a8a"}`}
+                >
+                  複數計算
+                </span>
+              </Checkbox>
+            </div>
           </div>
         )}
       </div>

@@ -40,7 +40,7 @@ const raceInfo = {
         winery: 0,
         total: 329995,
         advantage: "會微損但啟動成本極低",
-        weakness: "遇到1熊/鱷/虎 死1棒",
+        weakness: "遇到1熊/鱷/虎 死1棒 ; 一樣面臨被斧頭拖累速度問題",
       },
       {
         infantryNo1Numbers: "1棒",

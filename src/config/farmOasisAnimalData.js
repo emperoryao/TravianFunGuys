@@ -8,5 +8,6 @@ const animals = [
   { name: "灰熊", iconClass: "animal7", respawnMinutes: 11 },
   { name: "鱷魚", iconClass: "animal8", respawnMinutes: 12 },
   { name: "老虎", iconClass: "animal9", respawnMinutes: 13 },
+  { name: "大象", iconClass: "animal10", respawnMinutes: 15 },
 ];
 export default animals;

@@ -83,7 +83,7 @@ function TroopsConfiguration({ title, config }) {
       </div>
       <div className="flex borderBottom1SB3B3B3">
         <div className="wid50 mRight_02 mLeft_04 borderRight1SB3B3B3 l-hei15r">
-          釀酒廠等級
+          <span className="color_eb5054">釀酒廠</span>等級
         </div>
         <div className="mLeft_02 txt-center wid50">{config.winery}</div>
       </div>

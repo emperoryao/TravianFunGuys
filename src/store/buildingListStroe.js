@@ -6,94 +6,130 @@ const useBuildingStore = create((set, get) => ({
   totalResourceArray: [],
   multiple: false,
   multipleStartItem: {},
+  isMultipleCount: false,
+  setIsMultipleCount: (value) => set({ isMultipleCount: value }),
   setBuild: (build) => set({ build }),
   setSaveArray: (saveArray) => set({ saveArray }),
   setTotalResourceArray: (totalResourceArray) => set({ totalResourceArray }),
-  setMultiple: (multiple) => set({ multiple }),
+  setMultiple: (checked) => {
+    set({ multiple: checked });
+
+    if (!checked) {
+      set({ multipleStartItem: {} });
+    }
+  },
   setMultipleStartItem: (item) => set({ multipleStartItem: item }),
   handleBuildLvOnClick: (NewItem, isDeleteMode = false) => {
     const {
       saveArray,
       multiple,
       multipleStartItem,
+      isMultipleCount,
       setSaveArray,
       setMultiple,
       setMultipleStartItem,
+      setIsMultipleCount,
     } = get();
-    if (multiple === true && Object.keys(multipleStartItem).length === 0) {
+
+    const key = Object.keys(NewItem)[0];
+    const value = Object.values(NewItem)[0];
+
+    const exist = saveArray.some((item) => item[key] === value);
+
+    // 👉 若為刪除行為
+    if (exist && isDeleteMode) {
+      if (isMultipleCount) setIsMultipleCount(false);
+      const filtered = saveArray.filter((item) => !(item[key] === value));
+      setSaveArray(filtered);
+      return;
+    }
+
+    // 👉 多選起點未設定 → 記錄起點
+    if (multiple && Object.keys(multipleStartItem).length === 0) {
       setMultipleStartItem(NewItem);
       return;
-    } else if (
-      multiple === true &&
-      Object.keys(multipleStartItem).length !== 0
-    ) {
-      let key1 = Object.keys(multipleStartItem)[0];
-      let key2 = Object.keys(NewItem)[0];
+    }
+
+    // 👉 多選範圍完成
+    if (multiple && Object.keys(multipleStartItem).length !== 0) {
+      const key1 = Object.keys(multipleStartItem)[0];
+      const key2 = Object.keys(NewItem)[0];
+
       if (key1 === key2) {
-        let value1 = Object.values(multipleStartItem)[0];
-        let value2 = Object.values(NewItem)[0];
-        [value1, value2] = [value1, value2].sort((x, y) => x - y);
-        let result = [];
-        for (let i = 1; i <= 100; i++) {
-          if (i >= value1 && i <= value2) {
-            result.push({
-              [key1]: i,
-            });
+        let [value1, value2] = [
+          Object.values(multipleStartItem)[0],
+          Object.values(NewItem)[0],
+        ].sort((a, b) => a - b);
+
+        let count = 1;
+        if (isMultipleCount) {
+          const input = window.prompt("請輸入此區間每個等級要計算幾次？", "1");
+          const parsed = parseInt(input, 10);
+          if (!isNaN(parsed) && parsed > 0) {
+            count = parsed;
+          } else {
+            return; // 輸入無效
           }
         }
-        if (saveArray.length > 0) {
-          let temp = [];
-          for (let j in result) {
-            let flag = false;
-            for (let k in saveArray) {
-              if (Object.keys(result[j])[0] === Object.keys(saveArray[k])[0]) {
-                if (
-                  Object.values(result[j])[0] === Object.values(saveArray[k])[0]
-                ) {
-                  flag = true;
-                  break; // 如果找到重复的元素，直接跳出内层循环
-                }
-              }
-            }
-            if (flag === false) {
-              temp.push(result[j]); // 如果在内层循环中没有找到重复的元素，添加到temp
-            }
-          }
-          // 最后将temp合并到saveArray
-          setSaveArray([...saveArray, ...temp]);
-          setMultiple(!multiple);
-          setMultipleStartItem({});
-        } else {
-          setSaveArray(result);
-          setMultiple(!multiple);
-          setMultipleStartItem({});
+
+        const result = [];
+        for (let i = value1; i <= value2; i++) {
+          const item = { [key1]: i };
+          if (isMultipleCount) item.count = count;
+          result.push(item);
         }
-      } else {
-        setMultiple(!multiple);
-        setMultipleStartItem({});
-      }
-    } else {
-      //單選區
-      if (saveArray.length > 0) {
-        let newItemkey = Object.keys(NewItem);
-        const exist = saveArray.some(
-          (item) => item[newItemkey] === NewItem[newItemkey]
-        );
-        if (exist && isDeleteMode) {
-          const filteredArray = saveArray.filter(
-            (item) => JSON.stringify(item) !== JSON.stringify(NewItem)
+
+        const newItems = result.filter((resItem) => {
+          return !saveArray.some(
+            (oldItem) =>
+              Object.keys(resItem)[0] === Object.keys(oldItem)[0] &&
+              Object.values(resItem)[0] === Object.values(oldItem)[0]
           );
-          setSaveArray(filteredArray);
-          return;
-        } else if (!exist) {
-          setSaveArray([...saveArray, NewItem]);
-          return;
-        }
+        });
+
+        setSaveArray([...saveArray, ...newItems]);
+        setMultiple(false);
+        setMultipleStartItem({});
+        if (isMultipleCount) setIsMultipleCount(false);
+        return;
+      }
+
+      // 若多選的 key 不一致，重置多選
+      setMultiple(false);
+      setMultipleStartItem({});
+      return;
+    }
+
+    // 👉 如果從多選切換為單選中間有殘留 → 阻止再進入單選
+    if (multiple) return;
+
+    // 👉 單選處理（可含複數）
+    let count = 1;
+    if (isMultipleCount) {
+      const input = window.prompt("請輸入此等級要計算幾次？", "1");
+      const parsed = parseInt(input, 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        count = parsed;
       } else {
-        setSaveArray([NewItem]);
         return;
       }
     }
+
+    const finalItem = isMultipleCount
+      ? { [key]: value, count }
+      : { [key]: value };
+
+    // ✅ 修正：單選也要檢查是否已存在（含 count）
+    const alreadyExists = saveArray.some((item) => {
+      return item[key] === value && (!item.count || item.count === count);
+    });
+
+    if (alreadyExists) {
+      return; // 不重複加入
+    }
+
+    setSaveArray([...saveArray, finalItem]);
+    if (isMultipleCount) setIsMultipleCount(false);
   },
 }));
 

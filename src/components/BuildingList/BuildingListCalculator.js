@@ -44,22 +44,41 @@ function getSortedSaveArray(saveArray) {
 function renderRows(sortedArray, handleClick) {
   return sortedArray.map((item, index) => {
     const key = Object.keys(item)[0];
-    const value = Object.values(item)[0];
+    const value = item[key];
+    const count = item.count || 1;
     const target = resourcesList[0][key].find((a) => a.lv === value);
-    console.log("target", target);
+
+    // 若資源資料找不到（例：資料被移除），避免錯誤
+    if (!target) return null;
+
+    // 計算乘上 count 的結果
+    const displayResource = {
+      wood: target.wood * count,
+      brick: target.brick * count,
+      iron: target.iron * count,
+      corp: target.corp * count,
+      CP: target.CP * count,
+      total: target.total * count,
+    };
+
     return (
       <div
         className="flex buildinginCalculator"
         key={`${key}-${value}-${index}`}
         onClick={() => handleClick(item)}
       >
-        <div className="wid25 txt-center border1S7E7E7E">{`${key} - 等級${value}`}</div>
-        <div className={usuallyCSS}>{target.wood}</div>
-        <div className={usuallyCSS}>{target.brick}</div>
-        <div className={usuallyCSS}>{target.iron}</div>
-        <div className={usuallyCSS}>{target.corp}</div>
-        <div className={usuallyCSS}>{target.CP}</div>
-        <div className="wid15 txt-center border1S7E7E7E">{target.total}</div>
+        <div className="wid25 txt-center border1S7E7E7E">
+          <span>{`${key} - 等級${value}`}</span>
+          {count > 1 && <span className="mLeft_03 color_cf2321">×{count}</span>}
+        </div>
+        <div className={usuallyCSS}>{displayResource.wood}</div>
+        <div className={usuallyCSS}>{displayResource.brick}</div>
+        <div className={usuallyCSS}>{displayResource.iron}</div>
+        <div className={usuallyCSS}>{displayResource.corp}</div>
+        <div className={usuallyCSS}>{displayResource.CP}</div>
+        <div className="wid15 txt-center border1S7E7E7E">
+          {displayResource.total}
+        </div>
       </div>
     );
   });
@@ -73,9 +92,11 @@ function BuildingListCalculator() {
 
   return (
     <div className="wid35">
-      <div className="color_0600ff l-hei1p7r hei1p7r mTop_02 mBot_05 flex">
-        <span className="fs20px fw-bold">當前統計之建築清單</span>{" "}
-        <span className="color_cf2321">點擊不要的建築項目即可從清單中移除</span>
+      <div className="color_0600ff l-hei1p7r hei1p7r mTop_02 mBot_05">
+        <span className="fs20px fw-bold">當前統計之建築清單</span>
+        <span className="color_cf2321 mLeft_05">
+          點擊不要的建築項目即可從清單中移除
+        </span>
       </div>
 
       <div>

@@ -18,10 +18,10 @@ function TimeCalculateBack(...args) {
   return calculateTime(...args, true);
 }
 function DistanceCalculate() {
-  const [x1, setX1] = useState(0);
-  const [y1, setY1] = useState(0);
-  const [x2, setX2] = useState(0);
-  const [y2, setY2] = useState(0);
+  const [x1, setX1] = useState(null);
+  const [y1, setY1] = useState(null);
+  const [x2, setX2] = useState(null);
+  const [y2, setY2] = useState(null);
   const [JJCLV, setJJCLV] = useState(0);
   const [mapSize, setMapSize] = useState(401);
   const [result, setResult] = useState(0);
@@ -263,7 +263,7 @@ function DistanceCalculate() {
               className="mTop_05 mRight_05 mLeft_35p troopsCalCulator hei2r l-hei2r border1S00003 pTop_01 pRight_1 pBot_01 pLeft_1 borderRadius05r wid4r txt-center"
               onClick={() => {
                 const dist = circulateDistance(x1, y1, x2, y2, mapSize);
-                setResult(dist);
+                setResult(dist ? dist : 0);
               }}
             >
               計算

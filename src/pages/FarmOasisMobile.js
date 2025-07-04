@@ -19,19 +19,19 @@ function FarmOasisMobile() {
   function renderAnimalRespawnTable() {
     return (
       <div className="mLeft_1">
-        <div className="flex">
-          <div className="wid50px txt-center outline1S00003"></div>
+        <div className="flex align-center ">
+          <div className="wid32px txt-center outline1S00003">圖示</div>
           <div className="wid100px txt-center outline1S00003">動物名稱</div>
           <div className="wid200px txt-center outline1S00003">
             重生時間(分鐘)
           </div>
         </div>
         {animals.map((animal, index) => (
-          <div className="flex" key={index}>
-            <div className="wid50px txt-center outline1S00003">
+          <div className="flex l-hei32px hei32px" key={index}>
+            <div className="hei32px wid32px txt-center outline1S00003">
               <img
                 alt=""
-                className={`hei16px wid16px animal ${animal.iconClass}`}
+                className={`hei32px wid32px animal ${animal.iconClass}`}
               />
             </div>
             <div className="wid100px txt-center outline1S00003">

@@ -82,7 +82,9 @@ function TroopsConfigurationMobile({ title, config }) {
         <div className="txt-center wid50">{config.total}</div>
       </div>
       <div className="flex borderBottom1SB3B3B3 txt-center hei2r l-hei2r">
-        <div className="wid50 borderRight1SB3B3B3">釀酒廠等級</div>
+        <div className="wid50 borderRight1SB3B3B3">
+          <span className="color_eb5054">釀酒廠</span>等級
+        </div>
         <div className="txt-center wid50">{config.winery}</div>
       </div>
       <div className="flex borderBottom1SB3B3B3 txt-center align-center hei4p5r l-hei4p5r">

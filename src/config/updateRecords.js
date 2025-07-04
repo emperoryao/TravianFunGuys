@@ -1,5 +1,15 @@
 const updateRecords = [
-  { type: "mobile", text: "調整 手機版導航列", date: "2025-07-0ˋ" },
+  {
+    type: "mobile",
+    text: "新增 建築計算器可以計算單一等級多數量",
+    date: "2025-07-04",
+  },
+  {
+    type: "desktop",
+    text: "新增 建築計算器可以計算單一等級多數量",
+    date: "2025-07-04",
+  },
+  { type: "mobile", text: "調整 手機版導航列", date: "2025-07-03" },
   { type: "mobile", text: "新增 手機版行軍計算器", date: "2025-07-03" },
   { type: "mobile", text: "新增 手機版建築資源計算器", date: "2025-07-03" },
   { type: "mobile", text: "新增 手機版刷綠頁面", date: "2025-07-03" },
