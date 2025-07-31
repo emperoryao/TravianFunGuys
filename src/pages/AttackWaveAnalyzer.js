@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavbarMobile from "../components/NavbarMobile";
 import circulateDistance from "../utilis/distanceCalculate_CalculateDistance";
 import calculateTime from "../utilis/distanceCalculate_CalculateTime";
 
@@ -114,6 +115,7 @@ function AttackWaveAnalyzer() {
 
   return (
     <div className="atk-wave-analysis">
+      <NavbarMobile />
       <h2>攻擊波分析器</h2>
       <div>
         <h3>目標座標</h3>
