@@ -9,6 +9,7 @@ import Lobby from "./pages/Lobby";
 import LobbyMobile from "./pages/LobbyMobile";
 import DistanceCalculate from "./pages/DistanceCalculate";
 import DistanceCalculateMobile from "./pages/DistanceCalculateMobile";
+import AttackWaveAnalyzer from "./pages/AttackWaveAnalyzer";
 import "./style/common.less";
 function Router() {
   return (
@@ -47,6 +48,15 @@ function Router() {
             <ResponsiveRoute
               desktopComponent={DistanceCalculate}
               mobileComponent={DistanceCalculateMobile}
+            />
+          }
+        />
+        <Route
+          path="/AttackWaveAnalyzer"
+          element={
+            <ResponsiveRoute
+              desktopComponent={AttackWaveAnalyzer}
+              mobileComponent={AttackWaveAnalyzer}
             />
           }
         />

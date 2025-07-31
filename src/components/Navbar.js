@@ -34,12 +34,12 @@ function Navbar() {
       >
         行軍計算器
       </div>
-      {/*<div
+      <div
         className="NavarButton widFit mAll_05 border1S00003 pAll_05 borderRadius05r fs1r hei1r l-hei1r bg_f5f5f5 fw-bold"
-        onClick={() => handleNavigate("/CulturePoints")}
+        onClick={() => handleNavigate("/AttackWaveAnalyzer")}
       >
-        關於文明點
-      </div>*/}
+        攻波分析器
+      </div>
     </div>
   );
 }
