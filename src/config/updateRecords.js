@@ -1,5 +1,10 @@
 const updateRecords = [
   {
+    type: "desktop",
+    text: "新增 攻波分析器",
+    date: "2025-08-02",
+  },
+  {
     type: "mobile",
     text: "新增 建築計算器顯示區塊自定義高度",
     date: "2025-07-05",

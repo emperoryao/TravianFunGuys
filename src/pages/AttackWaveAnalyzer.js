@@ -27,7 +27,19 @@ function AttackWaveAnalyzer() {
   const [underAtkX, setUnderAtkX] = useState(0);
   const [underAtkY, setUnderAtkY] = useState(0);
   const [currentMode, setCurrentMode] = useState(0); // 0: 推算JJC, 1: 推算發兵時間
-
+  const columnConfig = [
+    { id: "origin", label: "來源座標" },
+    { id: "name", label: "攻擊方名稱" },
+    { id: "dist", label: "距離" },
+    { id: "speed", label: "速度組" },
+    { id: "jjc", label: "競技場等級" },
+    { id: "travelTime", label: "行軍時間" },
+    { id: "launch", label: "發兵時間" },
+    { id: "status", label: "狀態" },
+  ];
+  const [visibleCols, setVisibleCols] = useState(
+    columnConfig.reduce((acc, col) => ({ ...acc, [col.id]: true }), {})
+  );
   const RadioGroup = Radio.Group;
 
   /** 速度組：travel speed = 地圖速度(1/1.5/2倍) + 衝/投本身差異 */
@@ -89,6 +101,16 @@ function AttackWaveAnalyzer() {
           if (startVal > endVal) {
             alert("競技場區間輸入有誤：起始等級不可大於結束等級");
             return; // 直接中斷計算
+          }
+        }
+      }
+    }
+    if (currentMode === 1) {
+      for (const { jjcMode, jjcKnown } of origins) {
+        if (jjcMode === "known") {
+          if (jjcKnown === "" || isNaN(Number(jjcKnown))) {
+            alert("請輸入已知競技場等級");
+            return; // 中斷計算
           }
         }
       }
@@ -474,30 +496,54 @@ function AttackWaveAnalyzer() {
       {/* 結果顯示 */}
       <div className="mLeft_1 mTop_05">
         <h3>計算結果</h3>
-        <div className="flex fw-bold">
-          <div className="wid10">來源座標</div>
-          <div className="wid10">攻擊方名稱</div>
-          <div className="wid10">距離</div>
-          <div className="wid10">速度組</div>
-          <div className="wid10">競技場等級</div>
-          <div className="wid10">行軍時間</div>
-          <div className="wid10">發兵時間</div>
-          <div className="wid10">狀態</div>
+        <div className="flex mTop_05 mBot_05">
+          {columnConfig.map((col) => (
+            <label key={col.id} className="wid7 flex txt-center">
+              <input
+                type="checkbox"
+                checked={visibleCols[col.id]}
+                onChange={(e) =>
+                  setVisibleCols({ ...visibleCols, [col.id]: e.target.checked })
+                }
+              />
+              <span className="mLeft_02">{col.label}</span>
+            </label>
+          ))}
+        </div>
+        <div className="flex fw-bold txt-center">
+          {visibleCols.origin && <div className="wid7">來源座標</div>}
+          {visibleCols.name && <div className="wid7">攻擊方名稱</div>}
+          {visibleCols.dist && <div className="wid7">距離</div>}
+          {visibleCols.speed && <div className="wid7">速度組</div>}
+          {visibleCols.jjc && <div className="wid7">競技場等級</div>}
+          {visibleCols.travelTime && <div className="wid7">行軍時間</div>}
+          {visibleCols.launch && <div className="wid7">發兵時間</div>}
+          {visibleCols.status && <div className="wid7">狀態</div>}
         </div>
         {results
           .filter((item) => item.missed === false)
           .map((item, idx) => (
-            <div className="flex" key={idx}>
-              <div className="wid10">{item.origin}</div>
-              <div className="wid10">{item.originName}</div>
-              <div className="wid10">{item.dist}</div>
-              <div className="wid10">
-                {item.speedLabel} ({item.speed})
-              </div>
-              <div className="wid10">{item.jjcLv}</div>
-              <div className="wid10">{item.travelTime}</div>
-              <div className="wid10">{item.launchTime}</div>
-              <div className="wid10">{item.missed ? "已錯過" : "可行"}</div>
+            <div className="flex txt-center" key={idx}>
+              {visibleCols.origin && <div className="wid7">{item.origin}</div>}
+              {visibleCols.name && (
+                <div className="wid7">{item.originName}</div>
+              )}
+              {visibleCols.dist && <div className="wid7">{item.dist}</div>}
+              {visibleCols.speed && (
+                <div className="wid7">
+                  {item.speedLabel} ({item.speed})
+                </div>
+              )}
+              {visibleCols.jjc && <div className="wid7">{item.jjcLv}</div>}
+              {visibleCols.travelTime && (
+                <div className="wid7">{item.travelTime}</div>
+              )}
+              {visibleCols.launch && (
+                <div className="wid7">{item.launchTime}</div>
+              )}
+              {visibleCols.status && (
+                <div className="wid7">{item.missed ? "已錯過" : "可行"}</div>
+              )}
             </div>
           ))}
       </div>
