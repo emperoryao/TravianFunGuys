@@ -57,7 +57,7 @@ function FarmOasis() {
           <div>
             <RadioGroup
               onChange={onRadioChange}
-              value={pickRace} // ✅ 這裡加上 value 綁定選中的值
+              value={pickRace}
               className="mBot_1"
             >
               <Radio key="1" value={1}>
