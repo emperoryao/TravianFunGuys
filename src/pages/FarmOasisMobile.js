@@ -88,6 +88,14 @@ function FarmOasisMobile() {
                 </div>
               </div>
             ) : null}
+
+            {pickRace === 4 ? (
+              <div className="mTop_05">
+                <div>匈奴人備註:</div>
+                <div>當聯盟冶金2%時，白神兵工廠僅需16+15</div>
+                <div>當聯盟冶金4%時，白神兵工廠僅需14+14</div>
+              </div>
+            ) : null}
           </div>
         }
       </div>
