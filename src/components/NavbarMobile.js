@@ -30,7 +30,7 @@ function NavbarMobile() {
 
   const handleOptionOnClick = (path) => {
     setTempFavorites((prev) =>
-      prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path]
+      prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path],
     );
   };
   const handleOpen = () => {
@@ -59,7 +59,7 @@ function NavbarMobile() {
         />
       </div>
       {open && (
-        <div className="pAbsolute top_3 wid100 bg_navbarButton color_fff pTop_1 pBot_2 z2">
+        <div className="pAbsolute top_3 wid100 bg_navbarButton color_fff pTop_1 pBot_2 z2 flowHidden">
           <div className="flex mBot_05 align-center">
             <div className="wid100 txt-center fs1r">網站地圖</div>
             <div
