@@ -27,6 +27,7 @@ const useBuildingStore = create((set, get) => ({
   setIsMultipleCount: (value) => set({ isMultipleCount: value }),
   setBuild: (build) => set({ build }),
   setSaveArray: (saveArray) => set({ saveArray }),
+  clearSaveArray: () => set({ saveArray: [] }),
   setTotalResourceArray: (totalResourceArray) => set({ totalResourceArray }),
   setMultiple: (checked) => {
     set({ multiple: checked });
@@ -96,7 +97,7 @@ const useBuildingStore = create((set, get) => ({
           return !saveArray.some(
             (oldItem) =>
               Object.keys(resItem)[0] === Object.keys(oldItem)[0] &&
-              Object.values(resItem)[0] === Object.values(oldItem)[0]
+              Object.values(resItem)[0] === Object.values(oldItem)[0],
           );
         });
 

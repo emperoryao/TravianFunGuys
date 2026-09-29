@@ -4,26 +4,31 @@ import resourcesList from "../../config/buildingListResourceList";
 import "../../style/common.less";
 
 const usuallyCSS = "wid10 txt-center border1S7E7E7E";
-// 計算資源總和
-function calculateTotalResources(saveArray) {
-  const resultArray = saveArray.map((entry) => {
-    const [key, value] = [Object.keys(entry)[0], Object.values(entry)[0]];
-    const list = resourcesList[0][key];
-    return list.find((item) => item.lv === value);
-  });
+const RESOURCE_KEYS = ["wood", "brick", "iron", "corp", "CP", "total"];
 
-  return resultArray.reduce(
-    (acc, cur) => {
-      acc.wood += cur.wood;
-      acc.brick += cur.brick;
-      acc.iron += cur.iron;
-      acc.corp += cur.corp;
-      acc.CP += cur.CP;
-      acc.total += cur.total;
-      return acc;
-    },
-    { wood: 0, brick: 0, iron: 0, corp: 0, CP: 0, total: 0 }
-  );
+// 取得單一項目的資源（已乘上 count），找不到資料回傳 null
+function getItemResource(item) {
+  const key = Object.keys(item)[0];
+  const value = item[key];
+  const count = item.count || 1;
+  const target = resourcesList[0][key]?.find((a) => a.lv === value);
+  if (!target) return null;
+
+  return RESOURCE_KEYS.reduce((acc, k) => {
+    acc[k] = target[k] * count;
+    return acc;
+  }, {});
+}
+
+// 計算資源總和（含 count）
+function calculateTotalResources(saveArray) {
+  const init = Object.fromEntries(RESOURCE_KEYS.map((k) => [k, 0]));
+  return saveArray.reduce((acc, item) => {
+    const res = getItemResource(item);
+    if (!res) return acc;
+    RESOURCE_KEYS.forEach((k) => (acc[k] += res[k]));
+    return acc;
+  }, init);
 }
 
 // 取得排序後的建築陣列
@@ -46,20 +51,8 @@ function renderRows(sortedArray, handleClick) {
     const key = Object.keys(item)[0];
     const value = item[key];
     const count = item.count || 1;
-    const target = resourcesList[0][key].find((a) => a.lv === value);
-
-    // 若資源資料找不到（例：資料被移除），避免錯誤
-    if (!target) return null;
-
-    // 計算乘上 count 的結果
-    const displayResource = {
-      wood: target.wood * count,
-      brick: target.brick * count,
-      iron: target.iron * count,
-      corp: target.corp * count,
-      CP: target.CP * count,
-      total: target.total * count,
-    };
+    const res = getItemResource(item);
+    if (!res) return null;
 
     return (
       <div
@@ -71,63 +64,74 @@ function renderRows(sortedArray, handleClick) {
           <span>{`${key} - 等級${value}`}</span>
           {count > 1 && <span className="mLeft_03 color_cf2321">×{count}</span>}
         </div>
-        <div className={usuallyCSS}>{displayResource.wood}</div>
-        <div className={usuallyCSS}>{displayResource.brick}</div>
-        <div className={usuallyCSS}>{displayResource.iron}</div>
-        <div className={usuallyCSS}>{displayResource.corp}</div>
-        <div className={usuallyCSS}>{displayResource.CP}</div>
-        <div className="wid15 txt-center border1S7E7E7E">
-          {displayResource.total}
-        </div>
+        <div className={usuallyCSS}>{res.wood}</div>
+        <div className={usuallyCSS}>{res.brick}</div>
+        <div className={usuallyCSS}>{res.iron}</div>
+        <div className={usuallyCSS}>{res.corp}</div>
+        <div className={usuallyCSS}>{res.CP}</div>
+        <div className="wid15 txt-center border1S7E7E7E">{res.total}</div>
       </div>
     );
   });
 }
 
+// 表頭（上下兩處共用）
+function HeaderRow({ firstLabel }) {
+  return (
+    <div className="flex">
+      <div className="wid25 txt-center border1S7E7E7E">{firstLabel}</div>
+      <div className={usuallyCSS}>木</div>
+      <div className={usuallyCSS}>泥</div>
+      <div className={usuallyCSS}>鐵</div>
+      <div className={usuallyCSS}>米</div>
+      <div className={usuallyCSS}>文明點</div>
+      <div className="wid15 txt-center border1S7E7E7E">總和</div>
+    </div>
+  );
+}
+
 function BuildingListCalculator() {
-  const { saveArray, handleBuildLvOnClick } = useBuildingStore();
+  // 分開 selector，避免高度等其他 state 變動時觸發 re-render
+  const saveArray = useBuildingStore((s) => s.saveArray);
+  const handleBuildLvOnClick = useBuildingStore((s) => s.handleBuildLvOnClick);
+  const clearSaveArray = useBuildingStore((s) => s.clearSaveArray);
 
   const sortedArray = getSortedSaveArray(saveArray);
   const totals = calculateTotalResources(saveArray);
+  const isEmpty = saveArray.length === 0;
+
+  const handleClearAll = () => {
+    if (isEmpty) return;
+    clearSaveArray();
+  };
 
   return (
     <div className="wid35">
       <div className="color_0600ff l-hei1p7r hei1p7r mTop_02 mBot_05">
         <span className="fs20px fw-bold">當前統計之建築清單</span>
-        <span className="color_cf2321 mLeft_05">
+        <span className="color_cf2321 mRight_05 mLeft_05">
           點擊不要的建築項目即可從清單中移除
+        </span>
+        <span
+          onClick={handleClearAll}
+          className="pAll_02 border1S0600ff color_0b76ff borderRadius02r"
+          style={{
+            cursor: isEmpty ? "not-allowed" : "pointer",
+          }}
+        >
+          清除全部
         </span>
       </div>
 
       <div>
-        <div className="flex">
-          <div className="wid25 txt-center border1S7E7E7E">建築物</div>
-          <div className={usuallyCSS}>木</div>
-          <div className={usuallyCSS}>泥</div>
-          <div className={usuallyCSS}>鐵</div>
-          <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明點</div>
-          <div className="wid15 txt-center border1S7E7E7E">總和</div>
-        </div>
-
-        {/* 建築列 */}
+        <HeaderRow firstLabel="建築物" />
         <div className="bias">
-          {renderRows(sortedArray, (item, isDeleteMode = true) =>
-            handleBuildLvOnClick(item, isDeleteMode)
-          )}
+          {renderRows(sortedArray, (item) => handleBuildLvOnClick(item, true))}
         </div>
       </div>
 
       <div className="mTop_05">
-        <div className="flex">
-          <div className="wid25 txt-center border1S7E7E7E"></div>
-          <div className={usuallyCSS}>木</div>
-          <div className={usuallyCSS}>泥</div>
-          <div className={usuallyCSS}>鐵</div>
-          <div className={usuallyCSS}>米</div>
-          <div className={usuallyCSS}>文明點</div>
-          <div className="wid15 txt-center border1S7E7E7E">總和</div>
-        </div>
+        <HeaderRow firstLabel="" />
         <div className="flex">
           <div className="wid25 txt-center border1S7E7E7E">總和</div>
           <div className={usuallyCSS}>{totals.wood}</div>

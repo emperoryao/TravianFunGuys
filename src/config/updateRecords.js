@@ -1,5 +1,10 @@
 const updateRecords = [
   {
+    type: "desktop",
+    text: "新增 建築計算 清除當前統計清單按鈕",
+    date: "2026-09-07",
+  },
+  {
     type: "mobile",
     text: "優化 刷綠配置-匈奴部分",
     date: "2026-09-07",
